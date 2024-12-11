@@ -8,5 +8,13 @@
       "name": "server",
       "path": "server"
     }
-  ]
+  ],
+  "settings": {
+    "cSpell.words": [
+      "bcwdev",
+      "popperjs",
+      "sweetalert",
+      "tmyb"
+    ]
+  }
 }

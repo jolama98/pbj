@@ -1,9 +1,13 @@
 namespace pbj.Models;
 public class Poem : RepoItem<int>
 {
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string Title { get; set; }
+    public string Body { get; set; }
     public int Views { get; set; }
-    public string CreatorId { get; set; }
+    public string Tags { get; set; }
+    public int Likes { get; set; }
+    public int Saves { get; set; }
+    public bool IsArchived { get; set; }
+    public string AuthorId { get; set; }
     public Profile Creator { get; set; }
 }

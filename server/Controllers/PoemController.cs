@@ -44,4 +44,36 @@ public class PoemController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
+
+    [Authorize]
+    [HttpDelete("{poemId}")]
+    public async Task<ActionResult<string>> DestroyPoem(int poemId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            string message = _poemService.DestroyPoem(poemId, userInfo.Id);
+            return Ok(message);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpPut("{poemId}")]
+    public async Task<ActionResult<Poem>> UpdatePoem(int poemId, [FromBody] Poem poemData)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Poem poem = _poemService.UpdatePoem(poemId, userInfo.Id, poemData);
+            return Ok(poem);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
 }

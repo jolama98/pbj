@@ -47,10 +47,57 @@ public class PoemRepository
         return poem;
     }
 
+    internal void DestroyPoem(int poemId)
+    {
+        string sql = "DELETE FROM poem WHERE id = @poem LIMIT 1";
+        int rowsAffected = _db.Execute(sql, new
+        {
+            poemId
+        });
+
+        if (rowsAffected == 0) throw new Exception("DELETE FAILED");
+        if (rowsAffected > 1) throw new Exception("DELETE WAS OVER POWERED!!!!!!!");
+    }
+
+    internal Poem GetPoemById(int poemId)
+    {
+        string sql = @"
+        SELECT 
+        poem.*,
+        accounts.*
+        FROM poem
+        JOIN accounts ON accounts.id = poem.authorId
+        WHERE  poem.id = @poemId
+        GROUP BY (poem.id)
+        ;";
+
+        Poem poem = _db.Query<Poem, Profile, Poem>(sql, JoinCreator, new
+        {
+            poemId
+        }).FirstOrDefault();
+
+        return poem;
+    }
+
     private Poem JoinCreator(Poem poem, Profile profile)
     {
         poem.Creator = profile;
         return poem;
+    }
+
+    internal void UpdatePoem(Poem poemToUpdate)
+    {
+        string sql = @"
+        UPDATE poem
+        Set
+        title = @title,
+        body = @body,
+        views = @views
+        WHERE id = @Id LIMIT 1;";
+
+        int rowsAffected = _db.Execute(sql, poemToUpdate);
+        if (rowsAffected == 0) throw new Exception("UPDATE FAILED");
+        if (rowsAffected > 1) throw new Exception("UPDATE DID NOT FAIL, BUT THAT IS STILL A PROBLEM");
     }
 }
 

@@ -1,4 +1,5 @@
 <script setup>
+import { AppState } from '@/AppState.js';
 import { poemsService } from '@/services/PoemsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
@@ -21,7 +22,7 @@ async function getAllPoems() {
 
 <template>
   <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    PBJ
+    {{ AppState.poems }}
   </div>
 </template>
 

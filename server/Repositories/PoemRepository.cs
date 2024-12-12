@@ -13,7 +13,7 @@ public class PoemRepository
         string sql = @"
         poem.*,
         accounts.*
-        FORM poem
+        FROM poem
         JOIN accounts ON accounts.id = poem.authorId
         GROUP BY (poem.id)
         ;";

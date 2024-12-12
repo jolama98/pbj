@@ -25,4 +25,23 @@ public class PoemController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
+
+
+    [Authorize]
+    //NOTE - ask jake how to limit creation to one account
+    [HttpPost]
+    public async Task<ActionResult<Poem>> CreatePoem([FromBody] Poem poemData)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            poemData.AuthorId = userInfo.Id;
+            Poem poem = _poemService.CreatePoem(poemData);
+            return Ok(poem);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
 }

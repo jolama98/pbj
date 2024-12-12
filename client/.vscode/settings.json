@@ -17,4 +17,8 @@
   ],
   "eslint.debug": true,
   "eslint.format.enable": true,
+  "cSpell.words": [
+    "acejf",
+    "tmyb"
+  ],
 }

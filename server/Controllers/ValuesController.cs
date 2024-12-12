@@ -30,5 +30,4 @@ public class ValuesController : ControllerBase
       return BadRequest(e.Message);
     }
   }
-
 }

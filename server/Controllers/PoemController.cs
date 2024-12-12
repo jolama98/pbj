@@ -10,5 +10,4 @@ public class PoemController : ControllerBase
         _poemService = poemService;
         _auth0Provider = auth0Provider;
     }
-
 }

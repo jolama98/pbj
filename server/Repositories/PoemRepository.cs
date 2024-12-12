@@ -11,6 +11,7 @@ public class PoemRepository
     internal List<Poem> GetAllPoems()
     {
         string sql = @"
+        SELECT
         poem.*,
         accounts.*
         FROM poem

@@ -13,8 +13,8 @@ public class PoemRepository
     {
         string sql = @"
         INSERT INTO
-        poem(title, body, tags, isArchived,  authorId)
-        VALUES(@title, @body, @tags, @isArchived,  @authorId);
+        poem(title, body, tags, isArchived, image,  authorId)
+        VALUES(@title, @body, @tags, @isArchived,  @image,@authorId);
 
         SELECT
         poem.*,

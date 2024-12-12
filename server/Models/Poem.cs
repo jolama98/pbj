@@ -9,5 +9,6 @@ public class Poem : RepoItem<int>
     public int Saves { get; set; }
     public bool IsArchived { get; set; }
     public string AuthorId { get; set; }
+    public string Image { get; set; }
     public Profile Creator { get; set; }
 }

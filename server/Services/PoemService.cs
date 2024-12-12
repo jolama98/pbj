@@ -8,4 +8,10 @@ public class PoemService
     {
         _poemRepository = poemRepository;
     }
+
+    internal List<Poem> GetAllPoems()
+    {
+        List<Poem> poem = _poemRepository.GetAllPoems();
+        return poem;
+    }
 }

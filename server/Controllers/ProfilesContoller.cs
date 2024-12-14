@@ -28,4 +28,19 @@ public class ProfilesController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
+    [HttpGet("{profileId}/poem")]
+    public ActionResult<List<Poem>> GetPoemsByProfileId(string profileId)
+    {
+        try
+        {
+            List<Poem> poem = _poemService.GetPoemByProfileId(profileId);
+            return Ok(poem);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
+
 }

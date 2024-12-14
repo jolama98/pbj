@@ -1,5 +1,4 @@
 namespace pbj.Repositories;
-
 public class PoemRepository
 {
     private readonly IDbConnection _db;
@@ -79,12 +78,22 @@ public class PoemRepository
         return poem;
     }
 
-    private Poem JoinCreator(Poem poem, Profile profile)
+    internal List<Poem> GetPoemByProfileId(string profileId)
     {
-        poem.Creator = profile;
+        string sql = @"
+        SELECT
+        *
+        FROM poem
+        JOIN accounts ON accounts.id = poem.creatorId
+        WHERE accounts.id = @profileId
+        ;";
+
+        List<Poem> poem = _db.Query<Poem, Profile, Poem>(sql, JoinCreator, new
+        {
+            profileId
+        }).ToList();
         return poem;
     }
-
     internal void UpdatePoem(Poem poemToUpdate)
     {
         string sql = @"
@@ -98,6 +107,13 @@ public class PoemRepository
         int rowsAffected = _db.Execute(sql, poemToUpdate);
         if (rowsAffected == 0) throw new Exception("UPDATE FAILED");
         if (rowsAffected > 1) throw new Exception("UPDATE DID NOT FAIL, BUT THAT IS STILL A PROBLEM");
+
     }
+    private Poem JoinCreator(Poem poem, Profile profile)
+    {
+        poem.Creator = profile;
+        return poem;
+    }
+
 }
 

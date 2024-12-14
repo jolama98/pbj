@@ -1,5 +1,4 @@
 namespace pbj.Services;
-
 public class PoemService
 {
     private readonly PoemRepository _poemRepository;
@@ -60,5 +59,11 @@ public class PoemService
         _poemRepository.UpdatePoem(poemToUpdate);
 
         return poemToUpdate;
+    }
+
+    internal List<Poem> GetPoemByProfileId(string profileId)
+    {
+        List<Poem> poem = _poemRepository.GetPoemByProfileId(profileId);
+        return poem;
     }
 }

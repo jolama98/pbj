@@ -6,13 +6,15 @@ public class ProfilesController : ControllerBase
 {
     private readonly Auth0Provider _auth0Provider;
     private readonly PoemService _poemService;
+    private readonly BookService _bookService;
     private readonly ProfilesService _profilesService;
 
-    public ProfilesController(Auth0Provider auth0Provider, PoemService poemService, ProfilesService profilesService)
+    public ProfilesController(Auth0Provider auth0Provider, PoemService poemService, ProfilesService profilesService, BookService bookService)
     {
         _auth0Provider = auth0Provider;
         _poemService = poemService;
         _profilesService = profilesService;
+        _bookService = bookService;
     }
 
     [HttpGet("{profileId}")]

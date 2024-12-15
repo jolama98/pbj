@@ -11,7 +11,7 @@ public class PoemController : ControllerBase
         _poemService = poemService;
         _auth0Provider = auth0Provider;
     }
-
+    //SECTION - get all poems
     [HttpGet]
     public ActionResult<List<Poem>> GetAllPoems()
     {
@@ -26,7 +26,7 @@ public class PoemController : ControllerBase
         }
     }
 
-
+    //SECTION - Create a poem
     [Authorize]
     //NOTE - ask jake how to limit creation to one account
     [HttpPost]
@@ -44,7 +44,7 @@ public class PoemController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
-
+    //SECTION Destroy Poem
     [Authorize]
     [HttpDelete("{poemId}")]
     public async Task<ActionResult<string>> DestroyPoem(int poemId)
@@ -61,7 +61,7 @@ public class PoemController : ControllerBase
         }
     }
 
-
+    //SECTION get poem by id
     [HttpGet("{poemId}")]
     public async Task<ActionResult<Poem>> GetPoemById(int poemId)
     {
@@ -76,7 +76,7 @@ public class PoemController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
-
+    //SECTION - edit poem
     [Authorize]
     [HttpPut("{poemId}")]
     public async Task<ActionResult<Poem>> UpdatePoem(int poemId, [FromBody] Poem poemData)

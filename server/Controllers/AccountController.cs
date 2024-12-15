@@ -8,11 +8,13 @@ public class AccountController : ControllerBase
 {
   private readonly AccountService _accountService;
   private readonly Auth0Provider _auth0Provider;
+  private readonly BookService _bookService;
 
-  public AccountController(AccountService accountService, Auth0Provider auth0Provider)
+  public AccountController(AccountService accountService, Auth0Provider auth0Provider, BookService bookService)
   {
     _accountService = accountService;
     _auth0Provider = auth0Provider;
+    _bookService = bookService;
   }
 
   [HttpGet]
@@ -28,4 +30,35 @@ public class AccountController : ControllerBase
       return BadRequest(e.Message);
     }
   }
+
+  [HttpPut]
+  public async Task<ActionResult<Account>> EditAccount([FromBody] Account editData)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      Account account = _accountService.Edit(editData, accountId: userInfo.Id);
+      return Ok(account);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+  [HttpGet("books")]
+  public async Task<ActionResult<List<Book>>> GetVaultByAccount()
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      List<Book> vault = _accountService.GetBookByAccount(userInfo?.Id);
+      return Ok(vault);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+
 }

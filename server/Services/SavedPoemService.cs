@@ -23,8 +23,5 @@ public class SavedPoemService
         List<SavedPoemPoem> savedPoem = _savedPoemRepository.GetPoemsInBook(bookId, userId);
         return savedPoem;
     }
-    // internal SavedPoem CreateSavePoem(SavedPoem savedPoemData)
-    // {
 
-    // }
 }

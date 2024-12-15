@@ -1,3 +1,4 @@
+
 namespace pbj.Services;
 
 public class AccountService
@@ -34,6 +35,14 @@ public class AccountService
     Account original = GetAccount(accountId);
     original.Name = editData.Name ?? editData.Name;
     original.Picture = editData.Picture ?? editData.Picture;
+    original.CoverImg = editData.CoverImg ?? editData.CoverImg;
     return _repo.Edit(original);
+  }
+
+  internal List<Book> GetBookByAccount(string accountId)
+  {
+
+    List<Book> book = _repo.GetAccountBooks(accountId);
+    return book;
   }
 }

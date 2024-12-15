@@ -1,3 +1,4 @@
+
 namespace pbj.Repositories;
 public class AccountsRepository
 {
@@ -24,9 +25,9 @@ public class AccountsRepository
   {
     string sql = @"
             INSERT INTO accounts
-              (name, picture, email, id)
+              (name, picture, email, id, coverImg)
             VALUES
-              (@Name, @Picture, @Email, @Id)";
+              (@Name, @Picture, @Email, @Id, @coverImg)";
     _db.Execute(sql, newAccount);
     return newAccount;
   }
@@ -35,12 +36,26 @@ public class AccountsRepository
   {
     string sql = @"
             UPDATE accounts
-            SET 
+            SET
               name = @Name,
               picture = @Picture
+              coverImg = @coverImg
             WHERE id = @Id;";
     _db.Execute(sql, update);
     return update;
+  }
+
+  internal List<Book> GetAccountBooks(string accountId)
+  {
+    string sql = @"
+    SELECT
+    books.*
+    FORM books
+    WHERE books.creatorId = @accountId
+    :";
+
+    List<Book> book = _db.Query<Book>(sql, new { accountId }).ToList();
+    return book;
   }
 }
 

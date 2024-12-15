@@ -61,6 +61,22 @@ public class PoemController : ControllerBase
         }
     }
 
+
+    [HttpGet("{poemId}")]
+    public async Task<ActionResult<Poem>> GetPoemById(int poemId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Poem poem = _poemService.GetPoemById(poemId);
+            return Ok(poem);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
     [Authorize]
     [HttpPut("{poemId}")]
     public async Task<ActionResult<Poem>> UpdatePoem(int poemId, [FromBody] Poem poemData)

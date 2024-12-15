@@ -1,4 +1,5 @@
 
+
 namespace pbj.Services;
 
 public class SavedPoemService
@@ -9,6 +10,11 @@ public class SavedPoemService
     public SavedPoemService(SavedPoemRepository savedPoemRepository)
     {
         _savedPoemRepository = savedPoemRepository;
+    }
+
+    internal SavedPoem CreateSavedPoem(SavedPoem savedPoemData)
+    {
+        throw new NotImplementedException();
     }
 
     internal List<SavedPoemPoem> GetPublicBook(int bookId, string userId)

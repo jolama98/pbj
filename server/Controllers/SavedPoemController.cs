@@ -12,6 +12,22 @@ public class SavedPoemController : ControllerBase
         _auth0Provider = auth0Provider;
     }
 
-
+    //SECTION - Create many to many
+    [Authorize]
+    [HttpPost]
+    public async Task<ActionResult<SavedPoem>> CreateSavedPoem([FromBody] SavedPoem savedPoemData)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            savedPoemData.CreatorId = userInfo.Id;
+            SavedPoem savedPoem = _savedPoemService.CreateSavedPoem(savedPoemData);
+            return Ok(savedPoem);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
 
 }

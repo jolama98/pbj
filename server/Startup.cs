@@ -37,8 +37,17 @@ public class Startup
     services.AddScoped<AccountsRepository>();
     services.AddScoped<AccountService>();
 
+    services.AddScoped<ProfilesRepository>();
+    services.AddScoped<ProfilesService>();
+
     services.AddScoped<PoemRepository>();
     services.AddScoped<PoemService>();
+
+    services.AddScoped<BookRepository>();
+    services.AddScoped<BookService>();
+
+    services.AddScoped<SavedPoemRepository>();
+    services.AddScoped<SavedPoemService>();
 
   }
 

@@ -67,7 +67,7 @@ public class PoemRepository
         accounts.*
         FROM poem
         JOIN accounts ON accounts.id = poem.authorId
-        WHERE  poem.id = @poemId
+        WHERE poem.id = @poemId
         GROUP BY (poem.id)
         ;";
 

@@ -32,7 +32,7 @@ public class BookRepository
     internal void DestroyBook(int bookId)
     {
         string sql = @"
-         DELETE FROM book WHERE id = @bookId LIMIT 1;
+         DELETE FROM books WHERE id = @bookId LIMIT 1;
         ;";
         int rowsAffected = _db.Execute(sql, new { bookId });
         if (rowsAffected == 0) throw new Exception("DELETE FAILED");
@@ -43,11 +43,11 @@ public class BookRepository
     {
         string sql = @"
         SELECT
-        book.*,
+        books.*,
         accounts.*
-        FROM book
-        JOIN accounts ON accounts.id = book.creatorId
-        WHERE book.id = @bookId
+        FROM books
+        JOIN accounts ON accounts.id = books.creatorId
+        WHERE books.id = @bookId
         ;";
 
         Book book = _db.Query<Book, Profile, Book>(sql, JoinCreator, new

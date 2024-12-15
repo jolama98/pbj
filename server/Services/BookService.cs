@@ -27,7 +27,7 @@ public class BookService
     {
         Book book = GetBookById(bookId);
 
-        if (book.CreatorId != userId)
+        if (book.IsPrivate == true && book.CreatorId != userId)
         {
             throw new Exception("NOTHING TO SEE HERE 👀👀👀");
         }
@@ -43,5 +43,15 @@ public class BookService
         }
         _bookRepository.DestroyBook(bookId);
         return $"{destroyBook.Title} was DELETE";
+    }
+
+    internal Book GetPublicBook(int bookId, string userId)
+    {
+        Book book = GetBookById(bookId);
+        if (book.CreatorId != userId && book.IsPrivate == true)
+        {
+            throw new Exception("NOTHING TO SEE HERE 👀👀👀");
+        }
+        return book;
     }
 }

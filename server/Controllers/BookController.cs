@@ -5,6 +5,7 @@ namespace pbj.Controllers;
 public class BookController : ControllerBase
 {
     private readonly BookService _bookService;
+    private readonly SavedPoemService _savedPoemService;
     private readonly Auth0Provider _auth0Provider;
 
     public BookController(BookService bookService, Auth0Provider auth0Provider)
@@ -56,6 +57,22 @@ public class BookController : ControllerBase
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
             string message = _bookService.DestroyBook(bookId, userInfo.Id);
             return Ok(message);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
+    //SECTION - public book
+    [HttpGet("{bookId}/poem")]
+    public async Task<ActionResult<List<SavedPoemPoem>>> GetPublicBook(int bookId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            List<SavedPoemPoem> savedPoem = _savedPoemService.GetPublicBook(bookId, userInfo.Id);
+            return Ok(savedPoem);
         }
         catch (Exception exception)
         {

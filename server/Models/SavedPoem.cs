@@ -16,7 +16,7 @@ public class SavedPoemProfile : Profile
 
 public class SavedPoemPoem : Poem
 {
-    public string SavedPoemId { get; set; }
+    public int SavedPoemId { get; set; }
     public int BookId { get; set; }
     public string AccountId { get; set; }
 }

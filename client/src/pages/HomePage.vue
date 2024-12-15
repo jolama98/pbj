@@ -1,9 +1,12 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import PoemCard from '@/components/PoemCard.vue';
 import { poemsService } from '@/services/PoemsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
+
+const poems = computed(() => AppState.poems)
 
 onMounted(() => {
   getAllPoems()
@@ -21,9 +24,41 @@ async function getAllPoems() {
 </script>
 
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    {{ AppState.poems }}
+  <div class="container-fluid">
+    <section class="row">
+      <div class="col-12">
+        <div class="masonry-layout">
+          <div class="masonry-item" v-for="poem in poems" :key="poem.id">
+            <PoemCard :poem />
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.masonry-layout {
+  column-count: 3;
+  column-gap: 1rem;
+  width: 100%;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 800px) {
+  .masonry-layout {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .masonry-layout {
+    column-count: 1;
+  }
+}
+
+</style>

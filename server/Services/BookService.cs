@@ -23,7 +23,7 @@ public class BookService
         Book book = _bookRepository.GetBookById(bookId) ?? throw new Exception($"No book was found with the id of {bookId}");
         return book;
     }
-    internal Book GetBookById(int bookId, string userId)
+    internal Book GetBookId(int bookId, string userId)
     {
         Book book = GetBookById(bookId);
 
@@ -52,6 +52,13 @@ public class BookService
         {
             throw new Exception("NOTHING TO SEE HERE 👀👀👀");
         }
+        return book;
+    }
+
+    public Book GetBookId(int bookId)
+    {
+
+        Book book = _bookRepository.GetBookById(bookId) ?? throw new Exception($"No book was found with the id of{bookId}");
         return book;
     }
 }

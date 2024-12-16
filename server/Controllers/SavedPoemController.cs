@@ -29,5 +29,20 @@ public class SavedPoemController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
+    [HttpDelete("{savedPoemId}")]
+    [Authorize]
+    public async Task<ActionResult<string>> DestroySavePoem(int savedPoemId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            string message = _savedPoemService.DestroySavePoem(savedPoemId, userInfo.Id);
+            return Ok(message);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
 
 }

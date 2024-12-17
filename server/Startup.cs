@@ -43,6 +43,9 @@ public class Startup
     services.AddScoped<PoemRepository>();
     services.AddScoped<PoemService>();
 
+    services.AddScoped<CommentRepository>();
+    services.AddScoped<CommentService>();
+
     services.AddScoped<BookRepository>();
     services.AddScoped<BookService>();
 

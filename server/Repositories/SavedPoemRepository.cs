@@ -1,8 +1,4 @@
-
-
-
 namespace pbj.Repositories;
-
 public class SavedPoemRepository
 {
     private readonly IDbConnection _db;

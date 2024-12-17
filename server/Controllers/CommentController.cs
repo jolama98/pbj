@@ -28,4 +28,22 @@ public class CommentController : ControllerBase
         }
     }
 
+    //SECTION - CreateAComment
+    [Authorize]
+    [HttpPost]
+    public async Task<ActionResult<Comment>> CreateAComment([FromBody] Comment commentData)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            commentData.CreatorId = userInfo.Id;
+            Comment comment = _commentService.CreateAComment(commentData);
+            return Ok(comment);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
 }

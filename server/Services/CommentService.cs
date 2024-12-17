@@ -1,4 +1,5 @@
 
+
 namespace pbj.Services;
 
 public class CommentService
@@ -8,6 +9,12 @@ public class CommentService
     public CommentService(CommentRepository commentRepository)
     {
         _commentRepository = commentRepository;
+    }
+
+    internal Comment CreateAComment(Comment commentData)
+    {
+        Comment comment = _commentRepository.CreateAComment(commentData);
+        return comment;
     }
 
     internal List<Comment> GetAllComments()

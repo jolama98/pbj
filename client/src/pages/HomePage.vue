@@ -1,6 +1,7 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import PoemCard from '@/components/PoemCard.vue';
+import ProfileCard from '../components/ProfileCard.vue';
 import { poemsService } from '@/services/PoemsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
@@ -26,7 +27,10 @@ async function getAllPoems() {
 <template>
   <div class="container-fluid">
     <section class="row">
-      <div class="col-12">
+      <div class="col-4">
+        <ProfileCard />
+      </div>
+      <div class="col-8 ">
         <div class="masonry-layout">
           <div class="masonry-item" v-for="poem in poems" :key="poem.id">
             <PoemCard :poem />
@@ -60,5 +64,4 @@ async function getAllPoems() {
     column-count: 1;
   }
 }
-
 </style>

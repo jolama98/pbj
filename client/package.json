@@ -14,7 +14,7 @@
     "@mdi/font": "7.4.47",
     "@popperjs/core": "2.11.8",
     "axios": "1.7.4",
-    "bootstrap": "5.3.3",
+    "bootstrap": "^5.3.3",
     "socket.io-client": "4.7.5",
     "sweetalert2": "11.12.4",
     "vue": "^3.4.37",

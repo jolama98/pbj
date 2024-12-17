@@ -45,5 +45,26 @@ public class CommentController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
+    //SECTION - Get Comment By Id
+    [HttpGet("{commentId}")]
+    public async Task<ActionResult<Comment>> GetCommentById(int commentId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Comment comment = _commentService.GetCommentById(commentId);
+            return comment;
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
+
+
+
+    //SECTION - Edit Comment
+
 
 }

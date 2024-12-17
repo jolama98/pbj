@@ -1,5 +1,6 @@
 
 
+
 namespace pbj.Repositories;
 
 public class CommentRepository
@@ -48,6 +49,25 @@ public class CommentRepository
         return comment;
     }
 
+    internal Comment GetCommentById(int commentId)
+    {
+        string sql = @"
+            SELECT
+            comment.*
+            account.*
+            FROM comment
+            JOIN accounts ON accounts.id = comment.creatorId
+            WHERE comment.id = @commentId
+            GROUP BY (comment.id)
+        ;";
+
+        Comment comment = _db.Query<Comment, Profile, Comment>(sql, JoinCreator, new
+        {
+            commentId
+        }).FirstOrDefault();
+
+        return comment;
+    }
 
     private Comment JoinCreator(Comment comment, Profile profile)
     {

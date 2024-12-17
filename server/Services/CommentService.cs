@@ -1,5 +1,3 @@
-
-
 namespace pbj.Services;
 
 public class CommentService
@@ -20,6 +18,12 @@ public class CommentService
     internal List<Comment> GetAllComments()
     {
         List<Comment> comment = _commentRepository.GetAllComments();
+        return comment;
+    }
+
+    internal Comment GetCommentById(int commentId)
+    {
+        Comment comment = _commentRepository.GetCommentById(commentId) ?? throw new Exception($"No Comment found with this id of {commentId}");
         return comment;
     }
 }

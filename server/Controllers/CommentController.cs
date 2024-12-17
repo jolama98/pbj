@@ -62,7 +62,6 @@ public class CommentController : ControllerBase
     }
 
 
-
     //SECTION -  Delete Comment
     [Authorize]
     [HttpDelete("{commentId}")]
@@ -81,6 +80,20 @@ public class CommentController : ControllerBase
     }
 
     //SECTION - Edit Comment
-
+    [Authorize]
+    [HttpPut("{commentId}")]
+    public async Task<ActionResult<Comment>> UpdateComment(int commentId, [FromBody] Comment commentData)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Comment comment = _commentService.UpdateComment(commentId, userInfo.Id, commentData);
+            return Ok(comment);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
 
 }

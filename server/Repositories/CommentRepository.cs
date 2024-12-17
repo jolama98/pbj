@@ -1,7 +1,3 @@
-
-
-
-
 namespace pbj.Repositories;
 
 public class CommentRepository
@@ -79,6 +75,20 @@ public class CommentRepository
         }).FirstOrDefault();
 
         return comment;
+    }
+
+    internal void UpdateComment(Comment commentToUpdate)
+    {
+        string sql = @"
+        UPDATE comment
+        Set
+        title = @title,
+        body = @body,
+        WHERE id = @Id LIMIT 1;";
+
+        int rowsAffected = _db.Execute(sql, commentToUpdate);
+        if (rowsAffected == 0) throw new Exception("UPDATE FAILED");
+        if (rowsAffected > 1) throw new Exception("UPDATE DID NOT FAIL, BUT THAT IS STILL A PROBLEM");
     }
 
     private Comment JoinCreator(Comment comment, Profile profile)

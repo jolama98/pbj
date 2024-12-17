@@ -15,6 +15,17 @@ public class CommentService
         return comment;
     }
 
+    internal string DestroyComment(int commentId, string userId)
+    {
+        Comment comment = GetCommentById(commentId);
+        if (comment.CreatorId != userId)
+        {
+            throw new Exception("YOU DID NOT CREATE THIS COMMENT! GET AWAY!!!!!");
+        }
+        _commentRepository.DestroyComment(commentId);
+        return "Comment was DELETED";
+    }
+
     internal List<Comment> GetAllComments()
     {
         List<Comment> comment = _commentRepository.GetAllComments();

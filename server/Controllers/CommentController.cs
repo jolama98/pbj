@@ -63,6 +63,22 @@ public class CommentController : ControllerBase
 
 
 
+    //SECTION -  Delete Comment
+    [Authorize]
+    [HttpDelete("{commentId}")]
+    public async Task<ActionResult<string>> DestroyComment(int commentId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            string message = _commentService.DestroyComment(commentId, userInfo.Id);
+            return Ok(message);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
 
     //SECTION - Edit Comment
 

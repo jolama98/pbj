@@ -1,6 +1,7 @@
 
 
 
+
 namespace pbj.Repositories;
 
 public class CommentRepository
@@ -28,6 +29,17 @@ public class CommentRepository
 
         Comment comment = _db.Query<Comment, Profile, Comment>(sql, JoinCreator, commentData).FirstOrDefault();
         return comment;
+    }
+
+    internal void DestroyComment(int commentId)
+    {
+        string sql = "DELETE FROM comment WHERE id = @comment LIMIT 1";
+        int rowsAffected = _db.Execute(sql, new
+        {
+            commentId
+        });
+        if (rowsAffected == 0) throw new Exception("DELETE FAILED");
+        if (rowsAffected > 1) throw new Exception("DELETE WAS OVER POWERED!!!!!!!");
     }
 
     internal List<Comment> GetAllComments()

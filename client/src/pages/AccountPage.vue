@@ -1,12 +1,14 @@
 <script setup>
 import { computed } from 'vue';
 import { AppState } from '../AppState.js';
+import AccountFrom from '@/components/AccountFrom.vue';
 
 const account = computed(() => AppState.account)
 
 </script>
 
 <template>
+  <AccountFrom />
   <div class="about text-center">
     <div v-if="account">
       <h1>Welcome {{ account.name }}</h1>

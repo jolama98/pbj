@@ -30,7 +30,7 @@ ADD image varchar(255)
 
 DROP TABLE poem;
 INSERT INTO poem(title, body, tags, isArchived,  authorId) 
-VALUES("A Prince a Knight and the princess", "In a kingdom where the stars aligned,
+VALUES("knnni", "In a kingdom where the stars aligned,
 A prince with words both sweet and kind,
 Met a princess, her heart so bright,
 Their bond grew strong beneath the night.
@@ -49,24 +49,9 @@ Each night he waited, filled with dread,
 While thoughts of her and the prince were spread.
 For though he loved her as a friend,
 He feared the prince would be her end.
-
-The princess, torn in heart and mind,
-With love for both, she felt confined.
-She did not wish to see them fight,
-Nor lose her bond with her loyal knight.
-
-But in the dark, beneath the sky,
-She met the prince, though nights slipped by.
-She cherished all he had to say,
-But feared what would come, come the day.
-
-For friendship, love, and duty bind,
-A tangled web that’s hard to find,
-Yet in her heart, she wished to be,
-Free with them both, in harmony.
 ", "#Prince
 #Knight
-#Princess
+
 #LoveTriangle
 #Kingdom
 #Romance
@@ -74,18 +59,7 @@ Free with them both, in harmony.
 #Loyalty
 #Heartfelt
 #EmotionalTug
-#DutyAndLove
-#Sacrifice
-#Friendship
-#Choice
-#LoveAndLoss
-#Fate
-#Destiny
-#TornHeart
-#StarCrossed
-#Fantasy
-#RomanticConflict
-#InnerStruggle
+
 ", false,'66d109c1258b754bca428053'
  )
 

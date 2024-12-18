@@ -8,6 +8,7 @@ import Pop from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
 
 const poems = computed(() => AppState.poems)
+const account = computed(() => AppState.account)
 
 onMounted(() => {
   getAllPoems()
@@ -27,14 +28,15 @@ async function getAllPoems() {
 <template>
   <div class="container-fluid">
     <section class="row">
-      <div class="col-4">
-        <ProfileCard />
-      </div>
-      <div class="col-8 ">
-        <div class="masonry-layout">
-          <div class="masonry-item" v-for="poem in poems" :key="poem.id">
+      <div class="d-flex flex-row justify-content-center">
+        <div class="col-md-3">
+          <ProfileCard :accountProps="account" />
+        </div>
+        <div class="col-md-8 col-12">
+          <div class="pb-2 poem" v-for="poem in poems" :key="poem.id">
             <PoemCard :poem />
           </div>
+
         </div>
       </div>
     </section>
@@ -42,26 +44,30 @@ async function getAllPoems() {
 </template>
 
 <style scoped lang="scss">
-.masonry-layout {
-  column-count: 3;
-  column-gap: 1rem;
-  width: 100%;
-}
-
-.masonry-item {
-  break-inside: avoid;
-  margin-bottom: 1rem;
-}
-
-@media (max-width: 800px) {
-  .masonry-layout {
-    column-count: 2;
-  }
-}
-
-@media (max-width: 480px) {
-  .masonry-layout {
-    column-count: 1;
-  }
+.poem {
+  overflow-y: scroll;
 }
 </style>
+
+// .masonry-layout {
+// column-count: 3;
+// column-gap: 1rem;
+// width: 100%;
+// }
+
+// .masonry-item {
+// break-inside: avoid;
+// margin-bottom: 1rem;
+// }
+
+// @media (max-width: 800px) {
+// .masonry-layout {
+// column-count: 2;
+// }
+// }
+
+// @media (max-width: 480px) {
+// .masonry-layout {
+// column-count: 1;
+// }
+// }

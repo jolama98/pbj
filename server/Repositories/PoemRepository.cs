@@ -49,7 +49,7 @@ public class PoemRepository
 
     internal void DestroyPoem(int poemId)
     {
-        string sql = "DELETE FROM poem WHERE id = @poem LIMIT 1";
+        string sql = "DELETE FROM poem WHERE id = @poemId LIMIT 1";
         int rowsAffected = _db.Execute(sql, new
         {
             poemId

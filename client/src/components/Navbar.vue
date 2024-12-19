@@ -43,8 +43,16 @@ function toggleTheme() {
           :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
           <Icon :name="theme == 'light' ? 'weather-sunny' : 'weather-night'" />
         </button>
-        <input type="text">
       </div>
+
+      <div class="box">
+        <form name="search">
+          <input type="text" class="input" name="txt" onmouseout="this.value = ''; this.blur();">
+
+        </form>
+        <i class="mdi mdi-magnify"></i>
+      </div>
+
       <Login />
     </div>
   </nav>
@@ -65,9 +73,45 @@ a:hover {
   border-bottom-right-radius: 0;
 }
 
-@media screen and (min-width: 576px) {
-  nav {
-    height: 64px;
-  }
+@media screen and (min-width: 576px) {}
+
+.box {
+  position: relative;
+}
+
+.input {
+  padding: 12px;
+  width: 2px;
+  height: 2px;
+  background: none;
+  border: 4px solid;
+  border-radius: 50px;
+  box-sizing: border-box;
+  font-family: Comic Sans MS;
+  font-size: 26px;
+  color: #13a028;
+  outline: none;
+  transition: .5s;
+}
+
+.box:hover input {
+  width: 20dvh;
+  background: #3b3640;
+  border-radius: 10px;
+}
+
+.box i {
+  position: absolute;
+  top: 54%;
+  left: 17px;
+  transform: translate(-50%, -50%);
+  font-size: 26px;
+  color: #13a028;
+  transition: .2s;
+}
+
+.box:hover i {
+  opacity: 0;
+  z-index: -1;
 }
 </style>

@@ -29,6 +29,7 @@ function toggleTheme() {
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
+
       <ul class="navbar-nav me-auto">
         <li>
           <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
@@ -42,6 +43,7 @@ function toggleTheme() {
           :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
           <Icon :name="theme == 'light' ? 'weather-sunny' : 'weather-night'" />
         </button>
+        <input type="text">
       </div>
       <Login />
     </div>

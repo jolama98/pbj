@@ -6,6 +6,8 @@ import { poemsService } from '@/services/PoemsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
+import ModalWrapper from '@/components/ModalWrapper.vue';
+import PoemModal from '@/components/PoemModal.vue';
 
 const poems = computed(() => AppState.poems)
 const account = computed(() => AppState.account)
@@ -29,25 +31,27 @@ async function getAllPoems() {
   <div class="container-fluid">
     <section class="row">
       <div class="d-flex flex-row justify-content-center">
-        <div class="col-md-3">
-          <ProfileCard :accountProps="account" />
+        <div class="col-md-3 pt-3">
+          <div class="d-none d-md-block">
+            <ProfileCard :accountProps="account" />
+          </div>
         </div>
-        <div class="col-md-8 col-12">
-          <div class="pb-2 poem" v-for="poem in poems" :key="poem.id">
-            <PoemCard :poem />
+        <div class="col-md-8 col-12 pt-3">
+          <div v-for="poem in poems" :key="poem.id" class="pb-2">
+            <PoemCard :poem="poem" data-bs-toggle="modal" data-bs-target="#poem-modal" />
           </div>
 
         </div>
       </div>
     </section>
   </div>
+
+  <ModalWrapper id="poem-modal">
+    <PoemModal />
+  </ModalWrapper>
 </template>
 
-<style scoped lang="scss">
-.poem {
-  overflow-y: scroll;
-}
-</style>
+<style scoped lang="scss"></style>
 
 // .masonry-layout {
 // column-count: 3;

@@ -1,9 +1,15 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
 
+import { AuthService } from '@/services/AuthService.js';
+import { AppState } from '@/AppState.js';
+const identity = computed(() => AppState.identity)
 const theme = ref(loadState('theme') || 'light')
+async function login() {
+  AuthService.loginWithPopup()
+}
 
 onMounted(() => {
   document.documentElement.setAttribute('data-bs-theme', theme.value)
@@ -18,39 +24,67 @@ function toggleTheme() {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-3">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <img alt="logo" src="/img/cw-logo.png" height="45" />
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      aria-controls="navbarText" aria-expanded="true" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
 
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav me-auto d-flex flex-row">
         <li>
           <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
             About
           </router-link>
         </li>
+        <li class="d-md-none d-block">
+          <button class="btn selectable text-success lighten-30 text-uppercase" @click="login" v-if="!identity">
+            Login
+          </button>
+        </li>
       </ul>
-      <!-- LOGIN COMPONENT HERE -->
+
       <div>
         <button class="btn text-light" @click="toggleTheme"
           :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
           <Icon :name="theme == 'light' ? 'weather-sunny' : 'weather-night'" />
         </button>
       </div>
+      <div class="justify-content-around d-flex flex-wrap d-md-none d-block ">
+        <button class="btn btn-outline-info  rounded-4" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">Filter<samp class="mdi mdi-chevron-down mb-2"></samp></button>
 
-      <div class="box">
+        <ul class="dropdown-menu dropdown-menu-start ">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+
+        </ul>
+        <button class="btn btn-outline-info  rounded-4">
+          <router-link :to="{ name: 'Account' }">
+            <div class="list-group-item dropdown-item list-group-item-action text-info">
+              Edit Profile
+            </div>
+          </router-link>
+        </button>
+
+        <button class="btn btn-outline-info rounded-4">All</button>
+        <button class="btn btn-outline-info rounded-4">Saved</button>
+        <button class="btn btn-outline-info rounded-4">Liked</button>
+      </div>
+
+
+
+      <div class="box pt-3">
+        <i class="mdi mdi-magnify d-flex"></i>
         <form name="search">
-          <input type="text" class="input" name="txt" onmouseout="this.value = ''; this.blur();">
-
+          <input type="text" class="input" name="txt">
         </form>
-        <i class="mdi mdi-magnify"></i>
       </div>
 
       <Login />
@@ -81,7 +115,6 @@ a:hover {
 
 .input {
   padding: 12px;
-  width: 2px;
   height: 2px;
   background: none;
   border: 4px solid;
@@ -94,24 +127,19 @@ a:hover {
   transition: .5s;
 }
 
-.box:hover input {
-  width: 20dvh;
+.box input {
+  width: 80%;
   background: #3b3640;
   border-radius: 10px;
 }
 
 .box i {
   position: absolute;
-  top: 54%;
-  left: 17px;
+  top: 70%;
+  left: 76%;
   transform: translate(-50%, -50%);
   font-size: 26px;
   color: #13a028;
   transition: .2s;
-}
-
-.box:hover i {
-  opacity: 0;
-  z-index: -1;
 }
 </style>

@@ -9,14 +9,14 @@ const props = defineProps({
   poem: { type: Poem, required: true }
 })
 
-// function setActivePoem(poemId) {
-//   try {
-//     poemsService.GetPoemById(poemId)
-//   }
-//   catch (error) {
-//     Pop.error(error);
-//   }
-// }
+function setActivePoem(poemId) {
+  try {
+    poemsService.GetPoemById(poemId)
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
 
 async function deletePoem() {
   try {
@@ -40,12 +40,10 @@ async function deletePoem() {
   <div class="container">
     <div class="row">
       <div class="card flex-row">
-        <!-- <img class="img-fluid" :src="poem.imgUrl" :alt="poem.title" :title="poem.title"> -->
-        <!-- <div class="card-img-overlay d-flex align-items-end justify-content-between"> -->
         <div class="col-9">
-          <div class="card-body">
-            <p class="card-title fs-5">{{ poem.title }}</p>
-            <p class="card-text text-stop"> sty{{ poem.body }}</p>
+          <div class="card-body" role="button" @click="setActivePoem(props.poem.id)" v-if="poem">
+            <p class="card-title fs-5">{{ props.poem.title }}</p>
+            <p class="card-text text-stop"> {{ props.poem.body }}</p>
           </div>
         </div>
         <div class="col-3">

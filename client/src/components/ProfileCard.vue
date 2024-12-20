@@ -3,6 +3,8 @@ import { AppState } from '@/AppState.js';
 import { Account } from '@/models/Account.js';
 import { AuthService } from '@/services/AuthService.js';
 import { computed } from 'vue';
+import ModalWrapper from './ModalWrapper.vue';
+import CreatePoemModal from './CreatePoemModal.vue';
 
 const identity = computed(() => AppState.identity)
 const account = computed(() => AppState.account)
@@ -75,6 +77,9 @@ async function logout() {
             </router-link>
           </button>
 
+          <button class="btn btn-outline-info mb-5 rounded-4" data-bs-toggle="modal"
+            data-bs-target="#create-poem">Create
+            A Poem</button>
           <button class="btn btn-outline-info mb-4 rounded-4">All</button>
           <button class="btn btn-outline-info mb-4 rounded-4">Saved</button>
           <button class="btn btn-outline-info mb-4 rounded-4">Liked</button>
@@ -94,6 +99,9 @@ async function logout() {
       </div>
     </div>
   </div>
+  <ModalWrapper id="create-poem">
+    <CreatePoemModal />
+  </ModalWrapper>
 </template>
 
 

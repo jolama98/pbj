@@ -23,6 +23,12 @@ class PoemsService {
     AppState.poems.splice(poemData, 1)
   }
 
+  async createPoem(poemData) {
+    const response = await api.post('api/poem', poemData)
+    const newPoem = new Poem(response.data)
+    AppState.poems.unshift(newPoem)
+  }
+
 }
 
 export const poemsService = new PoemsService()

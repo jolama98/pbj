@@ -49,12 +49,7 @@ function toggleTheme() {
         </li>
       </ul>
 
-      <div>
-        <button class="btn text-light" @click="toggleTheme"
-          :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
-          <Icon :name="theme == 'light' ? 'weather-sunny' : 'weather-night'" />
-        </button>
-      </div>
+
       <div class="justify-content-around d-flex flex-wrap d-md-none d-block ">
         <button class="btn btn-outline-info  rounded-4" type="button" data-bs-toggle="dropdown"
           aria-expanded="false">Filter<samp class="mdi mdi-chevron-down mb-2"></samp></button>
@@ -87,6 +82,12 @@ function toggleTheme() {
         </form>
       </div>
 
+      <div>
+        <button class="btn text-light" @click="toggleTheme"
+          :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
+          <Icon :name="theme == 'light' ? 'weather-sunny' : 'weather-night'" />
+        </button>
+      </div>
       <Login />
     </div>
   </nav>
@@ -128,7 +129,7 @@ a:hover {
 }
 
 .box input {
-  width: 80%;
+  width: 100%;
   background: #3b3640;
   border-radius: 10px;
 }
@@ -136,7 +137,7 @@ a:hover {
 .box i {
   position: absolute;
   top: 70%;
-  left: 76%;
+  left: 96%;
   transform: translate(-50%, -50%);
   font-size: 26px;
   color: #13a028;

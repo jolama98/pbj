@@ -5,6 +5,7 @@ import { poemsService } from '@/services/PoemsService.js';
 import Pop from '@/utils/Pop.js';
 import { computed } from 'vue';
 const account = computed(() => AppState.account)
+
 const props = defineProps({
   poem: { type: Poem, required: true }
 })
@@ -37,24 +38,30 @@ async function deletePoem() {
 
 
 <template>
-  <div class="container">
+  <div v-if="poem" class="container-fluid">
+    <div class="d-flex justify-content-end delete-btn">
+      <i v-if="props.poem.authorId == account?.id" type="button" @click="deletePoem()"
+        class="delete-button mdi mdi-close-octagon-outline fs-1 text-danger d-flex icon-pos">
+      </i>
+    </div>
     <div class="row">
-      <div class="card flex-row">
-        <div class="col-9">
-          <div class="card-body" role="button" @click="setActivePoem(props.poem.id)" v-if="poem">
-            <p class="card-title fs-5">{{ props.poem.title }}</p>
-            <p class="card-text text-stop"> {{ props.poem.body }}</p>
-          </div>
-        </div>
-        <div class="col-3">
-          <div class="d-flex justify-content-end">
+      <div class="card">
 
-            <i v-if="props.poem.authorId == account?.id" type="button" @click="deletePoem()"
-              class="delete-button mdi mdi-close-octagon-outline fs-1 text-danger d-flex icon-pos  m-2">
-            </i>
-          </div>
+        <div class="card-body" role="button" @click="setActivePoem(props.poem.id)">
+
+          <h5 class="card-title">{{ props.poem.title }}</h5>
+          <p class="card-text text-stop">{{ props.poem.body }}</p>
         </div>
 
+        <div class="card-footer justify-content-end d-flex">
+
+
+          <small class="text-body-secondary">
+            <i class="mdi mdi-eye p-1"> {{ props.poem.views }}</i></small>
+          <small class="text-body-secondary">
+            <i class="mdi mdi-heart p-1">{{ props.poem.likes }}</i></small>
+        </div>
+        <!-- {{ props.poem.tags }} -->
       </div>
     </div>
   </div>
@@ -63,6 +70,13 @@ async function deletePoem() {
 
 
 <style lang="scss" scoped>
+.delete-button {
+  z-index: 1;
+  position: relative;
+  bottom: -50px;
+  left: 8px;
+}
+
 .text-stop {
   display: -webkit-box;
   -webkit-box-orient: vertical;

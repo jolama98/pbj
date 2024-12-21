@@ -22,6 +22,7 @@ const poem = computed(() => AppState.poemById)
       </div>
     </div>
     <div class="modal-footer p-1">
+      <i class="mdi mdi-eye"> {{ poem?.views }}</i>
       <i class="mdi mdi-heart"></i>
       <i class="mdi mdi-notebook"></i>
       <i class="mdi mdi-comment-edit"></i>

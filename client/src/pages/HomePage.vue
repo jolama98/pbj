@@ -37,7 +37,7 @@ async function getAllPoems() {
           </div>
         </div>
         <div class="col-md-8 col-12 pt-3">
-          <div v-for="poem in poems" :key="poem.id" class="pb-2">
+          <div v-for="poem in poems" :key="poem.id" class="pb-3">
             <PoemCard :poem="poem" data-bs-toggle="modal" data-bs-target="#poem-modal" />
           </div>
 

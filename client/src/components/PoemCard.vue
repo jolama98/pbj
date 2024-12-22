@@ -38,18 +38,16 @@ async function deletePoem() {
 
 
 <template>
-  <div v-if="poem" class="container-fluid">
-    <div class="d-flex justify-content-end delete-btn">
-      <i v-if="props.poem.authorId == account?.id" type="button" @click="deletePoem()"
-        class="delete-button mdi mdi-close-octagon-outline fs-1 text-danger d-flex icon-pos">
-      </i>
-    </div>
-    <div class="row">
-      <div class="card">
-
+  <div class="card">
+    <div v-if="poem" class="container-fluid">
+      <div class="row">
         <div class="card-body" role="button" @click="setActivePoem(props.poem.id)">
-
-          <h5 class="card-title">{{ props.poem.title }}</h5>
+          <div class="d-flex align-items-center justify-content-between  ">
+            <h5 class="card-title ">{{ props.poem.title }}</h5>
+            <i v-if="props.poem.authorId == account?.id" type="button" @click="deletePoem()"
+              class="mdi mdi-close-octagon-outline fs-1  text-danger">
+            </i>
+          </div>
           <p class="card-text text-stop">{{ props.poem.body }}</p>
         </div>
 
@@ -70,13 +68,6 @@ async function deletePoem() {
 
 
 <style lang="scss" scoped>
-.delete-button {
-  z-index: 1;
-  position: relative;
-  bottom: -50px;
-  left: 8px;
-}
-
 .text-stop {
   display: -webkit-box;
   -webkit-box-orient: vertical;

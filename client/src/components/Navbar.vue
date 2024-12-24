@@ -14,9 +14,24 @@ async function login() {
   AuthService.loginWithPopup()
 }
 
+const searchQuery = ref('')
+
+onUnmounted(() => {
+  poemsService.clearSearchQuery()
+})
 onMounted(() => {
   document.documentElement.setAttribute('data-bs-theme', theme.value)
 })
+
+
+function searchPoem() {
+  try {
+    poemsService.searchPoem(searchQuery.value)
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
 
 
 function toggleTheme() {
@@ -52,6 +67,13 @@ function toggleTheme() {
           </button>
         </li>
       </ul>
+      <div class="box pt-3">
+        <i class="mdi mdi-magnify d-flex"></i>
+        <form @submit.prevent="searchPoem()" name="search">
+          <input v-model="searchQuery" placeholder="Search for poems..." type="text" class="input" name="query"
+            id="query">
+        </form>
+      </div>
 
 
       <div class="justify-content-around d-flex flex-wrap d-md-none d-block ">

@@ -1,12 +1,15 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
 
 import { AuthService } from '@/services/AuthService.js';
 import { AppState } from '@/AppState.js';
+import Pop from '@/utils/Pop.js';
+import { poemsService } from '@/services/PoemsService.js';
 const identity = computed(() => AppState.identity)
 const theme = ref(loadState('theme') || 'light')
+
 async function login() {
   AuthService.loginWithPopup()
 }
@@ -14,6 +17,7 @@ async function login() {
 onMounted(() => {
   document.documentElement.setAttribute('data-bs-theme', theme.value)
 })
+
 
 function toggleTheme() {
   theme.value = theme.value == 'light' ? 'dark' : 'light'
@@ -75,12 +79,7 @@ function toggleTheme() {
 
 
 
-      <div class="box pt-3">
-        <i class="mdi mdi-magnify d-flex"></i>
-        <form name="search">
-          <input type="text" class="input" name="txt">
-        </form>
-      </div>
+
 
       <div>
         <button class="btn text-light" @click="toggleTheme"

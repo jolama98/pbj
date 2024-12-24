@@ -4,6 +4,26 @@ import { Poem } from "@/models/Poem.js"
 import { AppState } from "@/AppState.js"
 
 class PoemsService {
+  async searchPoem(query) {
+    try {
+      const response = await api.get('api/poem/search', {
+        params: { query: query || '' }
+      });
+      logger.log('Searched poems - poems service', response.data);
+      const searchedPoems = response.data.map(poemData => new Poem(poemData));
+      AppState.poems = searchedPoems;
+    } catch (error) {
+      logger.error('Error searching poems:', error);
+      throw error;
+    }
+  }
+
+
+  clearSearchQuery() {
+    AppState.poemQuery = '';
+    this.getAllPoems();
+  }
+
   async getAllPoems() {
     const response = await api.get('api/poem')
     logger.log('Got all poems - poems service', response.data)

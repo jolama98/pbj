@@ -12,6 +12,7 @@ export const AppState = reactive({
   /**@type {Poem} */
   poemById: null,
   /**@type {Poem} */
-  setActivePoem: null
+  setActivePoem: null,
+  poemQuery: ''
 })
 

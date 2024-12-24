@@ -5,16 +5,32 @@ import ProfileCard from '../components/ProfileCard.vue';
 import { poemsService } from '@/services/PoemsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import ModalWrapper from '@/components/ModalWrapper.vue';
 import PoemModal from '@/components/PoemModal.vue';
 
 const poems = computed(() => AppState.poems)
 const account = computed(() => AppState.account)
 
+const searchQuery = ref('')
+
+onUnmounted(() => {
+  poemsService.clearSearchQuery()
+})
+
 onMounted(() => {
   getAllPoems()
 })
+
+
+function searchPoem() {
+  try {
+    poemsService.searchPoem(searchQuery.value)
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
 
 async function getAllPoems() {
   try {
@@ -30,6 +46,15 @@ async function getAllPoems() {
 <template>
   <div class="container-fluid">
     <section class="row">
+      <div class="box pt-3">
+        <i class="mdi mdi-magnify d-flex"></i>
+        <form @submit.prevent="searchPoem()" name="search">
+          <input v-model="searchQuery" placeholder="Search for poems..." type="text" class="input" name="query"
+            id="query">
+        </form>
+      </div>
+
+
       <div class="d-flex flex-row justify-content-center">
         <div class="col-md-3 pt-3">
           <div class="d-none d-md-block">

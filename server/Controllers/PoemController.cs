@@ -77,33 +77,28 @@ public class PoemController : ControllerBase
         }
     }
 
-    //SECTION - search for poem 
-    [HttpGet("{}")]
 
+    //SECTION - search for poem
     [HttpGet("search")]
-    public IActionResult SearchPoems([FromQuery] string keyword)
+    public ActionResult<List<Poem>> SearchPoems([FromQuery] string query)
     {
         try
         {
-            if (string.IsNullOrWhiteSpace(keyword))
+            if (string.IsNullOrWhiteSpace(query))
             {
-                return BadRequest("Search term is required.");
+                return BadRequest("Search query cannot be empty.");
             }
 
-            List<Poem> poems = _poemService.SearchForPoems(keyword);
-
-            if (poems == null || poems.Count == 0)
-            {
-                return NotFound("No poems matched the search term.");
-            }
-
+            List<Poem> poems = _poemService.SearchForPoems(query);
             return Ok(poems);
         }
-        catch (Exception ex)
+        catch (Exception exception)
         {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
+            return BadRequest(exception.Message);
         }
     }
+
+
 
     //SECTION - edit poem
     [Authorize]

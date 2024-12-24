@@ -47,6 +47,32 @@ public class PoemRepository
         return poem;
     }
 
+    internal List<Poem> SearchPoems(string searchTerm)
+    {
+        string sql = @"
+    SELECT
+    poem.*,
+    accounts.*
+    FROM poem
+    JOIN accounts ON accounts.id = poem.authorId
+    WHERE
+        poem.title LIKE CONCAT('%', @searchTerm, '%') OR
+        poem.body LIKE CONCAT('%', @searchTerm, '%') OR
+        poem.tags LIKE CONCAT('%', @searchTerm, '%')
+    GROUP BY poem.id
+    ;";
+
+        List<Poem> poems = _db.Query<Poem, Profile, Poem>(sql, (poem, profile) =>
+        {
+            poem.Creator = profile;
+            return poem;
+        }, new { searchTerm }).ToList();
+
+        return poems;
+    }
+
+
+
     internal void DestroyPoem(int poemId)
     {
         string sql = "DELETE FROM poem WHERE id = @poemId LIMIT 1";
@@ -58,6 +84,7 @@ public class PoemRepository
         if (rowsAffected == 0) throw new Exception("DELETE FAILED");
         if (rowsAffected > 1) throw new Exception("DELETE WAS OVER POWERED!!!!!!!");
     }
+
 
     internal Poem GetPoemById(int poemId)
     {

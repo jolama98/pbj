@@ -76,6 +76,35 @@ public class PoemController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
+
+    //SECTION - search for poem 
+    [HttpGet("{}")]
+
+    [HttpGet("search")]
+    public IActionResult SearchPoems([FromQuery] string keyword)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return BadRequest("Search term is required.");
+            }
+
+            List<Poem> poems = _poemService.SearchForPoems(keyword);
+
+            if (poems == null || poems.Count == 0)
+            {
+                return NotFound("No poems matched the search term.");
+            }
+
+            return Ok(poems);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+    }
+
     //SECTION - edit poem
     [Authorize]
     [HttpPut("{poemId}")]

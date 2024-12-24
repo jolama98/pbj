@@ -66,4 +66,14 @@ public class PoemService
         List<Poem> poem = _poemRepository.GetPoemByProfileId(profileId);
         return poem;
     }
+
+    internal List<Poem> SearchForPoems(string keyword)
+    {
+        if (string.IsNullOrWhiteSpace(keyword))
+        {
+            throw new ArgumentException("Search term cannot be empty or whitespace.");
+        }
+
+        return _poemRepository.SearchPoems(keyword);
+    }
 }

@@ -1,5 +1,6 @@
 
 
+
 namespace pbj.Repositories;
 
 public class BookRepository
@@ -54,6 +55,24 @@ public class BookRepository
         {
             bookId
         }).FirstOrDefault();
+        return book;
+    }
+
+    internal List<Book> GetBooksByProfileId(string profileId)
+    {
+        string sql = @"
+        SELECT
+        books.*,
+        accounts.*
+        FROM books
+        JOIN accounts ON accounts.id = books.creatorId
+        WHERE books.IsPrivate = false AND accounts.id = @profileId;";
+
+        List<Book> book = _db.Query<Book, Profile,
+        Book>(sql, JoinCreator, new
+        {
+            profileId
+        }).ToList();
         return book;
     }
 

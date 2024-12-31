@@ -63,8 +63,15 @@ public class BookService
         return book;
     }
 
-    internal List<Book> GetBooksByProfileId(string profileId, string id)
+    internal List<Book> GetBooksByProfileId(string profileId, string userId)
     {
-        throw new NotImplementedException();
+        if (profileId == userId)
+        {
+            List<Book> book = _accountService.GetBookByAccount(profileId);
+            return book;
+        }
+
+        List<Book> books = _bookRepository.GetBooksByProfileId(profileId);
+        return books;
     }
 }

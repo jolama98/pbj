@@ -5,20 +5,16 @@ import ProfileCard from '../components/ProfileCard.vue';
 import { poemsService } from '@/services/PoemsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted} from 'vue';
 import ModalWrapper from '@/components/ModalWrapper.vue';
 import PoemModal from '@/components/PoemModal.vue';
 
 const poems = computed(() => AppState.poems)
 const account = computed(() => AppState.account)
 
-
-
 onMounted(() => {
   getAllPoems()
 })
-
-
 
 async function getAllPoems() {
   try {

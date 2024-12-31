@@ -1,7 +1,7 @@
 import { Account } from "./Account.js"
 
 export class Poem {
-  constructor(data){
+  constructor(data) {
     this.id = data.id
     this.title = data.title
     this.body = data.body
@@ -10,6 +10,7 @@ export class Poem {
     this.likes = data.likes
     this.saves = data.saves
     this.isArchived = data.isArchived
+    this.isLiked = data.isLiked
     this.authorId = data.authorId
     this.imgUrl = data.imgUrl
     this.creator = data.creator ? new Account(data.creator) : null

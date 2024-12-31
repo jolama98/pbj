@@ -19,6 +19,9 @@ function setActivePoem(poemId) {
   }
 }
 
+
+
+
 async function deletePoem() {
   try {
     const choice = await Pop.confirm("Are You Sure???", 'Delete Poem')
@@ -58,12 +61,11 @@ async function deletePoem() {
             <i class="mdi mdi-eye p-1"> {{ props.poem.views }}</i></small>
           <small class="text-body-secondary">
             <i class="mdi mdi-heart p-1">{{ props.poem.likes }}</i></small>
+
         </div>
-        <!-- {{ props.poem.tags }} -->
       </div>
     </div>
   </div>
-  <!-- </div> -->
 </template>
 
 

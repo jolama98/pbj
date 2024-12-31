@@ -37,11 +37,28 @@ public class ProfilesController : ControllerBase
         {
             List<Poem> poem = _poemService.GetPoemByProfileId(profileId);
             return Ok(poem);
+
         }
         catch (Exception exception)
         {
             return BadRequest(exception.Message);
         }
+    }
+
+    [HttpGet("{profileId}/books")]
+    async public Task<ActionResult<List<Book>>> GetBooksByProfileId(string profileId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            List<Book> books = _bookService.GetBooksByProfileId(profileId, userInfo?.Id);
+            return Ok(books);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+
     }
 
 

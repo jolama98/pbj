@@ -15,15 +15,17 @@ CREATE TABLE poem (
     body VARCHAR(1000) NOT NULL,
     tags VARCHAR(255) NOT NULL,
     isArchived BOOLEAN NOT NULL,
+    isLiked BOOLEAN NOT NULL,
     saves INT UNSIGNED NOT NULL DEFAULT 0,
     views INT UNSIGNED NOT NULL DEFAULT 0,
     likes INT UNSIGNED NOT NULL DEFAULT 0,
     authorId VARCHAR(255) NOT NULL,
     FOREIGN KEY (authorId) REFERENCES accounts (id) ON DELETE CASCADE
-    -- FOREIGN KEY (saved) REFERENCES 
+
+-- FOREIGN KEY (saved) REFERENCES
 )
 
-ALTER TABLE poem ADD image varchar(255)
+ALTER TABLE poem ADD isLiked BOOLEAN NOT NULL
 
 DROP TABLE poem;
 
@@ -36,33 +38,13 @@ INSERT INTO
         authorId
     )
 VALUES (
-        "knnni",
+        "kni",
         "In a kingdom where the stars aligned,
 A prince with words both sweet and kind,
 Met a princess, her heart so bright,
-Their bond grew strong beneath the night.
-The prince, with every gentle phrase,
-Set her heart and soul ablaze.
-She loved the way he spoke so true,
-And all the things he dared to do.
-But there was one, a knight so bold,
-With eyes that watched, a heart of gold.
-He guarded her with fierce intent,
-A bond that neither could repent.
-Each night he waited, filled with dread,
-While thoughts of her and the prince were spread.
-For though he loved her as a friend,
-He feared the prince would be her end.
+Th
 ",
         "#Prince
-#Knight
-#LoveTriangle
-#Kingdom
-#Romance
-#Conflict
-#Loyalty
-#Heartfelt
-#EmotionalTug
 ",
         false,
         '66d109c1258b754bca428053'
@@ -79,8 +61,6 @@ CREATE TABLE savedPoem (
     FOREIGN KEY (poemId) REFERENCES poem (id) ON DELETE CASCADE,
     FOREIGN KEY (bookId) REFERENCES books (id) ON DELETE CASCADE
 )
-
-DROP TABLE savedPoem
 
 CREATE TABLE likedPoem (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

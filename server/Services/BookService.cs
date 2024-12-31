@@ -1,4 +1,5 @@
 
+
 namespace pbj.Services;
 
 public class BookService
@@ -60,5 +61,10 @@ public class BookService
 
         Book book = _bookRepository.GetBookById(bookId) ?? throw new Exception($"No book was found with the id of{bookId}");
         return book;
+    }
+
+    internal List<Book> GetBooksByProfileId(string profileId, string id)
+    {
+        throw new NotImplementedException();
     }
 }

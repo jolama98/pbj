@@ -2,9 +2,15 @@
 import { AppState } from '@/AppState.js';
 import { Poem } from '@/models/Poem.js';
 import { poemsService } from '@/services/PoemsService.js';
+
+import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
+
+
 import { computed } from 'vue';
+
 const account = computed(() => AppState.account)
+
 
 const props = defineProps({
   poem: { type: Poem, required: true }
@@ -13,14 +19,37 @@ const props = defineProps({
 function setActivePoem(poemId) {
   try {
     poemsService.GetPoemById(poemId)
+    logger.log(props.poem?.id, "Seting the ID")
   }
   catch (error) {
     Pop.error(error);
   }
 }
 
+// const savedPoemToBookData = ref({
+//   poemId: 0,
+//   bookId: 0
+// })
 
 
+// async function createSavePoem(props) {
+//   try {
+//     // const poemId = props.poem.id
+//     savedPoemToBookData.value.poemId = props.poem?.id;
+//     logger.log(props.poem?.id, 'Hi')
+//     await savePoemsService.createSavePoem(savedPoemToBookData.value)
+
+//     Modal.getOrCreateInstance('#poem-modal').hide()
+//     savedPoemToBookData.value = {
+//       poemId: 0,
+//       bookId: 0
+//     }
+//     // Pop.success('Poem In Book!')
+//   }
+//   catch (error) {
+//     Pop.error(error);
+//   }
+// }
 
 async function deletePoem() {
   try {
@@ -61,7 +90,6 @@ async function deletePoem() {
             <i class="mdi mdi-eye p-1"> {{ props.poem.views }}</i></small>
           <small class="text-body-secondary">
             <i class="mdi mdi-heart p-1">{{ props.poem.likes }}</i></small>
-
         </div>
       </div>
     </div>

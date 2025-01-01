@@ -1,10 +1,12 @@
 import { logger } from "@/utils/Logger.js";
 import { api } from "./AxiosService.js";
+import Pop from "@/utils/Pop.js";
 
 class SavePoemsService {
-  async createSavePoem(value) {
-    const response = await api.post('api/savedpoem', value)
-    logger.log(response.data)
+  async createSavePoem(createSavePoemData) {
+    const response = await api.post('api/savedpoem', createSavePoemData)
+    logger.log("SAM I AM", response.data)
+    Pop.success('Poem In Book!')
   }
 }
 

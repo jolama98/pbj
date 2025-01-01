@@ -21,7 +21,7 @@ public class SavedPoemController : ControllerBase
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
             savedPoemData.CreatorId = userInfo.Id;
-            SavedPoem savedPoem = _savedPoemService.CreateSavedPoem(savedPoemData);
+            SavedPoem savedPoem = _savedPoemService.CreateSavedPoem(savedPoemData, userInfo.Id);
             return Ok(savedPoem);
         }
         catch (Exception exception)

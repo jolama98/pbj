@@ -16,3 +16,5 @@ export class Poem {
     this.creator = data.creator ? new Account(data.creator) : null
   }
 }
+
+

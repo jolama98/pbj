@@ -98,11 +98,6 @@ function toggleTheme() {
         <button class="btn btn-outline-info rounded-4">Saved</button>
         <button class="btn btn-outline-info rounded-4">Liked</button>
       </div>
-
-
-
-
-
       <div>
         <button class="btn text-light" @click="toggleTheme"
           :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">

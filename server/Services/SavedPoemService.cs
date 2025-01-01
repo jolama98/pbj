@@ -9,9 +9,14 @@ public class SavedPoemService
         _savedPoemRepository = savedPoemRepository;
     }
 
-    internal SavedPoem CreateSavedPoem(SavedPoem savedPoemData)
+    internal SavedPoem CreateSavedPoem(SavedPoem savedPoemData, string userId)
     {
-        throw new NotImplementedException();
+        Book book = _bookService.GetBookById(savedPoemData.BookId, userId);
+        SavedPoem savedPoem = _savedPoemRepository.CreateSavedPoem(savedPoemData);
+
+        if (book.CreatorId != userId) throw new Exception("You can't create a savePoem in this book!");
+        return savedPoem;
+
     }
 
     internal string DestroySavePoem(int savedPoemId, string userId)

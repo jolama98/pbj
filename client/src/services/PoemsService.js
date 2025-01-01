@@ -26,16 +26,17 @@ class PoemsService {
 
   async getAllPoems() {
     const response = await api.get('api/poem')
-    logger.log('Got all poems - poems service', response.data)
+    // logger.log('Got all poems - poems service', response.data)
     const newPoems = response.data.map(poemData => new Poem(poemData))
     AppState.poems = newPoems
   }
+
   async GetPoemById(poemId) {
     AppState.poemById = null
     const response = await api.get(`api/poem/${poemId}`)
-    logger.log(response.data)
     AppState.poemById = response.data
   }
+
   async deletePoem(poemId) {
     const response = await api.delete(`api/poem/${poemId}`)
     logger.log('DELETED POEM 💥', response.data)

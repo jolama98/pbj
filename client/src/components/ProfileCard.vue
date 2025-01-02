@@ -5,9 +5,11 @@ import { AuthService } from '@/services/AuthService.js';
 import { computed } from 'vue';
 import ModalWrapper from './ModalWrapper.vue';
 import CreatePoemModal from './CreatePoemModal.vue';
+import CreateBookModal from './CreateBookModal.vue';
 
 const identity = computed(() => AppState.identity)
 const account = computed(() => AppState.account)
+const books = computed(() => AppState.myBooks)
 async function login() {
   AuthService.loginWithPopup()
 }
@@ -77,12 +79,19 @@ async function logout() {
             </router-link>
           </button>
 
-          <button class="btn btn-outline-info mb-5 rounded-4" data-bs-toggle="modal"
+          <button class="btn btn-outline-info mb-2 rounded-4" data-bs-toggle="modal"
             data-bs-target="#create-poem">Create
             A Poem</button>
+
+          <button class="btn btn-outline-info mb-5 rounded-4" data-bs-toggle="modal"
+            data-bs-target="#create-book">Create
+            A Book</button>
+
+          <button class="btn btn-outline-info mb-4 rounded-4">{{ books.length }}</button>
           <button class="btn btn-outline-info mb-4 rounded-4">All</button>
           <button class="btn btn-outline-info mb-4 rounded-4">Saved</button>
           <button class="btn btn-outline-info mb-4 rounded-4">Liked</button>
+
 
 
 
@@ -101,6 +110,9 @@ async function logout() {
   </div>
   <ModalWrapper id="create-poem">
     <CreatePoemModal />
+  </ModalWrapper>
+  <ModalWrapper id="create-book">
+    <CreateBookModal />
   </ModalWrapper>
 </template>
 

@@ -6,6 +6,7 @@ export class Book extends DBItem {
     super(data)
     this.title = data.title
     this.creatorId = data.creatorId
+    this.isPrivate = data.isPrivate
     this.creator = data.creator ? new Profile(data.creator) : null
 
   }

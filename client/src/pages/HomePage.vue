@@ -5,7 +5,7 @@ import ProfileCard from '../components/ProfileCard.vue';
 import { poemsService } from '@/services/PoemsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
-import { computed, onMounted} from 'vue';
+import { computed, onMounted } from 'vue';
 import ModalWrapper from '@/components/ModalWrapper.vue';
 import PoemModal from '@/components/PoemModal.vue';
 
@@ -51,6 +51,7 @@ async function getAllPoems() {
   <ModalWrapper id="poem-modal">
     <PoemModal />
   </ModalWrapper>
+
 </template>
 
 <style scoped lang="scss"></style>

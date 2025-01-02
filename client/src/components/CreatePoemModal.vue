@@ -23,7 +23,7 @@ async function createPoem() {
       tags: '',
       isArchived: false
     }
-    Modal.getOrCreateInstance('#poem-modal').hide()
+    Modal.getOrCreateInstance('#create-poem').hide()
     Pop.success('Report submitted!')
   }
   catch (error) {

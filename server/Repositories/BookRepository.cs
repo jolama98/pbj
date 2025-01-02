@@ -16,15 +16,15 @@ public class BookRepository
     {
         string sql = @"
         INSERT INTO
-        books(title, creatorId)
-        VALUES(@title, @creatorId);
+        books(title, isPrivate , creatorId)
+        VALUES(@title, @isPrivate, @creatorId);
 
         SELECT
         books.*,
         accounts.*
         FROM books
         JOIN accounts ON accounts.id = books.creatorId
-        WHERE books.id = LAST_INERT_ID();";
+        WHERE books.id = LAST_INSERT_ID();";
 
         Book book = _db.Query<Book, Profile, Book>(sql, JoinCreator, bookData).FirstOrDefault();
         return book;

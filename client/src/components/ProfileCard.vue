@@ -9,7 +9,20 @@ import CreateBookModal from './CreateBookModal.vue';
 
 const identity = computed(() => AppState.identity)
 const account = computed(() => AppState.account)
-const books = computed(() => AppState.myBooks)
+const books = computed(() => AppState.accountBooks)
+
+// onMounted(() => {
+//   getMyBooks()
+// })
+
+// async function getMyBooks() {
+//   try {
+//     await bookService.getMyBooks()
+//   }
+//   catch (error) {
+//     Pop.error(error);
+//   }
+// }
 async function login() {
   AuthService.loginWithPopup()
 }
@@ -87,7 +100,7 @@ async function logout() {
             data-bs-target="#create-book">Create
             A Book</button>
 
-          <button class="btn btn-outline-info mb-4 rounded-4">{{ books.length }}</button>
+          <button class="btn btn-outline-info mb-4 rounded-4">{{ books.length }} Book</button>
           <button class="btn btn-outline-info mb-4 rounded-4">All</button>
           <button class="btn btn-outline-info mb-4 rounded-4">Saved</button>
           <button class="btn btn-outline-info mb-4 rounded-4">Liked</button>

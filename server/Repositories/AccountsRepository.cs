@@ -50,9 +50,9 @@ public class AccountsRepository
     string sql = @"
     SELECT
     books.*
-    FORM books
+    FROM books
     WHERE books.creatorId = @accountId
-    :";
+    ;";
 
     List<Book> book = _db.Query<Book>(sql, new { accountId }).ToList();
     return book;

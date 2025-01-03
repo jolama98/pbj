@@ -7,14 +7,13 @@ class BookService {
 
   async getMyBooks() {
     const response = await api.get('account/book')
-    AppState.myBooks = response.data.map(bookData => new Book(bookData))
+    AppState.profileBooks = response.data.map(bookData => new Book(bookData))
   }
 
   async createBook(bookData) {
     const response = await api.post('api/book', bookData)
     const newBook = new Book(response.data)
-    // if (AppState.account?.id == newBook.creatorId) AppState.myBooks.push(newBook)
-    AppState.myBooks.push(newBook)
+    AppState.profileBooks.push(newBook)
     Pop.success('You created a new book!')
   }
 }

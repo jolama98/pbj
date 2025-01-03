@@ -1,3 +1,4 @@
+import { Book } from '@/models/Book.js'
 import { AppState } from '../AppState.js'
 import { Account } from '../models/Account.js'
 import { logger } from '../utils/Logger.js'
@@ -20,6 +21,14 @@ class AccountService {
       logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
     }
   }
+
+  async getAccountBook() {
+    const response = await api.get('account/book')
+    logger.log("😂", response.data)
+    const myBooks = response.data.map(myBooks => new Book(myBooks))
+    AppState.accountBooks = myBooks
+  }
+
 }
 
 export const accountService = new AccountService()

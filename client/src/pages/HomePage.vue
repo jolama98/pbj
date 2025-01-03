@@ -22,7 +22,6 @@ async function getAllPoems() {
   }
   catch (error) {
     Pop.error(error)
-    logger.log
   }
 }
 </script>

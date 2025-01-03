@@ -45,14 +45,17 @@ public class AccountController : ControllerBase
       return BadRequest(exception.Message);
     }
   }
-  [HttpGet("books")]
+
+
+
+  [HttpGet("book")]
   public async Task<ActionResult<List<Book>>> GetVaultByAccount()
   {
     try
     {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      List<Book> vault = _accountService.GetBookByAccount(userInfo?.Id);
-      return Ok(vault);
+      List<Book> book = _accountService.GetBookByAccount(userInfo?.Id);
+      return Ok(book);
     }
     catch (Exception exception)
     {

@@ -9,7 +9,7 @@ import CreateBookModal from './CreateBookModal.vue';
 
 const identity = computed(() => AppState.identity)
 const account = computed(() => AppState.account)
-const books = computed(() => AppState.accountBooks)
+const books = computed(() => AppState.profileBooks)
 
 // onMounted(() => {
 //   getMyBooks()

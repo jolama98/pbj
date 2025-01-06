@@ -26,7 +26,7 @@ class AccountService {
     const response = await api.get('account/book')
     logger.log("😂", response.data)
     const myBooks = response.data.map(myBooks => new Book(myBooks))
-    AppState.accountBooks = myBooks
+    AppState.profileBooks = myBooks
   }
 
 }

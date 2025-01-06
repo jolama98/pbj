@@ -1,6 +1,5 @@
 <script setup>
 import { AppState } from '@/AppState.js';
-import { Poem } from '@/models/Poem.js';
 import { savePoemsService } from '@/services/SavePoemsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
@@ -9,24 +8,24 @@ import { computed, ref } from 'vue';
 
 
 const poem = computed(() => AppState.poemById)
-const myBook = computed(() => AppState.accountBooks)
+const myBook = computed(() => AppState.profileBooks)
+const account = computed(() => AppState.account)
 
 const savedPoemToBookData = ref({
-  poemId: 0,
-  bookId: 0
+  poemId: null,
+  bookId: null
 })
 
 async function createSavePoem() {
   try {
-    // const poemId = props.activePoem.id
-    savedPoemToBookData.value.poemId = AppState.poemById.id;
+    savedPoemToBookData.value.poemId = poem.value.id;
     await savePoemsService.createSavePoem(savedPoemToBookData.value)
     logger.log('Yum!', AppState.poemById.id)
 
     Modal.getOrCreateInstance('#poem-modal').hide()
     savedPoemToBookData.value = {
-      poemId: 0,
-      bookId: 0
+      poemId: null,
+      bookId: null
     }
     Pop.success('Poem In Book!')
   }
@@ -59,20 +58,22 @@ async function createSavePoem() {
 
       <i class="mdi mdi-comment-edit"></i>
 
-
       <div class="dropdown">
-        <select class="btn btn-light border border-2 dropdown-toggle rounded-4" data-bs-toggle="dropdown"
-          aria-expanded="false" v-model="savedPoemToBookData.bookId">
-          <option value="0" class="text-primary" disabled selected>{{ myBook.length }} books</option>
-          <hr />
-          <option v-for="book in myBook" :key="book.id" :book="book.id">
-            {{ book.title }}
-          </option>
-        </select>
+        <form @submit.prevent="createSavePoem()" v-if="account" class="d-flex">
+          <select v-model="savedPoemToBookData.bookId" class="form-select form-control no-round-end p-0"
+            aria-label="Select a vault to add the picture to">
+            <option selected value=null>Select a Book</option>
+            <option v-for="book in myBook" :key="book.id" :value="book.id">
+              {{ book.title }}</option>
+          </select>
+          <button class="mdi mdi-notebook btn btn-secondary border border-2 rounded-4">{{
+            poem?.saves }}</button>
+        </form>
       </div>
-      <button @click="createSavePoem()" class="mdi mdi-notebook btn btn-secondary border border-2 rounded-4">{{
-        poem?.saves }}</button>
+
+
     </div>
+
   </div>
 </template>
 

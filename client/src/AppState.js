@@ -17,8 +17,8 @@ export const AppState = reactive({
   setActivePoem: null,
   poemQuery: '',
 
-  /**@type {Book[]} */
-  myBooks: [],
+  // /**@type {Book[]} */
+  // myBooks: [],
   /** @type {Book[]} */
   profileBooks: [],
   /** @type {SavedPoemBook[]} */

@@ -30,25 +30,30 @@ ALTER TABLE poem ADD isLiked BOOLEAN NOT NULL
 DROP TABLE poem;
 
 INSERT INTO
-    poem (
-        title,
-        body,
-        tags,
-        isArchived,
-        authorId
-    )
+    savedPoem (
+        poemId,
+        bookId,
+        creatorId)
 VALUES (
-        "kni",
-        "In a kingdom where the stars aligned,
-A prince with words both sweet and kind,
-Met a princess, her heart so bright,
-Th
-",
-        "#Prince
-",
-        false,
-        '66d109c1258b754bca428053'
-    )
+    '5',
+'5',
+'66d109c1258b754bca428053'
+)
+
+-- INSERT INTO
+--     poem (
+--         title,
+--         body,
+--         tags,
+--         isArchived,
+--         authorId
+--     )
+-- VALUES (
+--         "kni",
+--         "In a kingdom where the stars aligned,
+-- A prince with words both sweet and kind,
+-- Met a princess, her heart so bright,
+-- Th ","#Prince",false,'66d109c1258b754bca428053')
 
 CREATE TABLE savedPoem (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -77,14 +82,14 @@ CREATE TABLE books (
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     title VARCHAR(255) NOT NULL,
-    creatorId VARCHAR(255) NOT NULL,
     isPrivate BOOLEAN NOT NULL,
+    creatorId VARCHAR(255) NOT NULL,
     FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
 )
 
-DROP TABLE books;
+DROP TABLE books
 
-ALTER TABLE books ADD isPrivate BOOLEAN NOT NULL 
+ALTER TABLE books ADD isPrivate BOOLEAN NOT NULL
 
 CREATE TABLE comments (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

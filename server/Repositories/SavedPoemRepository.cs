@@ -11,9 +11,9 @@ public class SavedPoemRepository
     internal SavedPoem CreateSavedPoem(SavedPoem savedPoemData)
     {
         string sql = @"
-        INERT INTO
-        savedPoem(poemId, creatorId)
-        VALUES(@poemId, @creatorId)
+        INSERT INTO
+        savedPoem( poemId, bookId, creatorId)
+        VALUES(@poemId, @bookId, @creatorId)
 
         SELECT
         *

@@ -19,7 +19,7 @@ const props = defineProps({
 function setActivePoem(poemId) {
   try {
     poemsService.GetPoemById(poemId)
-    logger.log(props.poem?.id, "Seting the ID")
+    logger.log(props.poem?.id, "Setting the ID")
   }
   catch (error) {
     Pop.error(error);

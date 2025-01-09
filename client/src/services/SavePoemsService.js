@@ -5,8 +5,8 @@ import Pop from "@/utils/Pop.js";
 class SavePoemsService {
 
   async createSavePoem(createSavePoemData) {
-    logger.log("See dog go", createSavePoemData)
-    const response = await api.post("api/savedpoem", createSavePoemData)
+    const response = await api.post('api/savedpoem', createSavePoemData)
+    logger.log("WHY", createSavePoemData)
     logger.log("SAM I AM", response.data)
     Pop.success('Poem In Book!')
   }

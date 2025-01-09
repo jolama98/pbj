@@ -1,6 +1,5 @@
 <script setup>
 import { AppState } from '@/AppState.js';
-import { Account } from '@/models/Account.js';
 import { AuthService } from '@/services/AuthService.js';
 import { computed } from 'vue';
 import ModalWrapper from './ModalWrapper.vue';
@@ -11,24 +10,11 @@ const identity = computed(() => AppState.identity)
 const account = computed(() => AppState.account)
 const books = computed(() => AppState.profileBooks)
 
-// onMounted(() => {
-//   getMyBooks()
-// })
 
-// async function getMyBooks() {
-//   try {
-//     await bookService.getMyBooks()
-//   }
-//   catch (error) {
-//     Pop.error(error);
-//   }
-// }
 async function login() {
   AuthService.loginWithPopup()
 }
-const props = defineProps({
-  accountProps: { type: Account, required: true }
-})
+
 
 async function logout() {
   AuthService.logout()
@@ -55,12 +41,12 @@ async function logout() {
                 aria-expanded="false">
                 <div v-if="account?.picture || identity?.picture">
                   <img class="avatar img-thumbnail mb-3" :src="account?.picture || identity?.picture"
-                    :alt="props.accountProps?.name">
+                    :alt="account?.name">
                 </div>
               </div>
 
               <div class="card-title d-flex justify-content-center">
-                <h1>{{ props.accountProps?.name }}</h1>
+                <h1>{{ account?.name }}</h1>
               </div>
               <div class="dropdown-menu dropdown-menu-sm-end dropdown-menu-start p-0" aria-labelledby="authDropdown">
                 <div class="list-group">

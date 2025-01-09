@@ -1,7 +1,9 @@
-import { Account } from "./Account.js"
+import { DBItem } from "./DBItem.js"
+import { Profile } from "./Profile.js"
 
-export class Poem {
+export class Poem extends DBItem {
   constructor(data) {
+    super(data)
     this.id = data.id
     this.title = data.title
     this.body = data.body
@@ -13,7 +15,8 @@ export class Poem {
     this.isLiked = data.isLiked
     this.authorId = data.authorId
     this.imgUrl = data.imgUrl
-    this.creator = data.creator ? new Account(data.creator) : null
+    this.creator = data.creator ? new Profile(data.creator) : null
+
   }
 }
 

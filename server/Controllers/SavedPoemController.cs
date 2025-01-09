@@ -1,6 +1,6 @@
 namespace pbj.Controllers;
 [ApiController]
-[Route("api/savedpoem")]
+[Route("api/[controller]")]
 public class SavedPoemController : ControllerBase
 {
     private readonly SavedPoemService _savedPoemService;
@@ -13,8 +13,8 @@ public class SavedPoemController : ControllerBase
     }
 
     //SECTION - Create many to many
-    [HttpPost]
     [Authorize]
+    [HttpPost]
     public async Task<ActionResult<SavedPoem>> CreateSavedPoem([FromBody] SavedPoem savedPoemData)
     {
         try
@@ -22,7 +22,7 @@ public class SavedPoemController : ControllerBase
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
 
             savedPoemData.CreatorId = userInfo.Id;
-            SavedPoem savedPoem = _savedPoemService.CreateSavedPoem(savedPoemData);
+            SavedPoem savedPoem = _savedPoemService.CreateSavedPoem(savedPoemData, userInfo.Id);
             return Ok(savedPoem);
         }
         catch (Exception exception)

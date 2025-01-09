@@ -10,10 +10,11 @@ import ModalWrapper from '@/components/ModalWrapper.vue';
 import PoemModal from '@/components/PoemModal.vue';
 
 const poems = computed(() => AppState.poems)
-const account = computed(() => AppState.account)
+
 
 onMounted(() => {
   getAllPoems()
+  AppState.activeProfile == null
 })
 
 async function getAllPoems() {
@@ -34,7 +35,7 @@ async function getAllPoems() {
       <div class="d-flex flex-row justify-content-center">
         <div class="col-md-3 pt-3">
           <div class="d-none d-md-block">
-            <ProfileCard :accountProps="account" />
+            <ProfileCard />
           </div>
         </div>
         <div class="col-md-8 col-12 pt-3">

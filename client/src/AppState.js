@@ -1,7 +1,7 @@
 import { reactive } from 'vue'
 import { Poem } from './models/Poem.js'
 import { Book } from './models/Book.js'
-import { SavedPoemBook } from './models/SavedPoem.js'
+// import { SavedPoemBook } from './models/SavedPoem.js'
 
 // NOTE AppState is a reactive object to contain app level data
 export const AppState = reactive({
@@ -16,13 +16,13 @@ export const AppState = reactive({
   /**@type {Poem} */
   setActivePoem: null,
   poemQuery: '',
-
-  // /**@type {Book[]} */
-  // myBooks: [],
+  /**@type {import('./models/Profile.js').Profile} */
+  activeProfile: null,
+  /**@type {import('./models/Book.js').Book[]} */
+  myBooks: [],
   /** @type {Book[]} */
-  profileBooks: [],
-  /** @type {SavedPoemBook[]} */
-  accountBooks: []
+  profileBooks: []
+
 
 })
 

@@ -21,17 +21,26 @@ public class BookService
 
     private Book GetBookById(int bookId)
     {
-        Book book = _bookRepository.GetBookById(bookId) ?? throw new Exception($"No book was found with the id of {bookId}");
+        Book book = _bookRepository.GetBookById(bookId);
+        if (book == null)
+        {
+            throw new Exception($"No book was found with the id of {bookId}");
+        }
         return book;
     }
     internal Book GetBookById(int bookId, string userId)
     {
         Book book = GetBookById(bookId);
-
-        if (book.IsPrivate == true && book.CreatorId != userId)
+        if (book.CreatorId != userId && book.IsPrivate == true)
         {
-            throw new Exception("NOTHING TO SEE HERE 👀👀👀");
+            throw new Exception("No Book found");
         }
+
+
+        // if (book.IsPrivate == true && book.CreatorId != userId)
+        // {
+        //     throw new Exception("NOTHING TO SEE HERE 👀👀👀");
+        // }
         return book;
     }
 

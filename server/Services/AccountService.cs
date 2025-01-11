@@ -45,4 +45,10 @@ public class AccountService
     List<Book> book = _repo.GetAccountBooks(accountId);
     return book;
   }
+
+  internal List<LikedPoem> GetLikedPoemByAccount(string profileId)
+  {
+    List<LikedPoem> likedPoems = _repo.GetLikedPoemByAccount(profileId);
+    return likedPoems;
+  }
 }

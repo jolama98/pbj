@@ -1,4 +1,5 @@
 
+
 namespace pbj.Repositories;
 public class AccountsRepository
 {
@@ -56,6 +57,19 @@ public class AccountsRepository
 
     List<Book> book = _db.Query<Book>(sql, new { accountId }).ToList();
     return book;
+  }
+
+  internal List<LikedPoem> GetLikedPoemByAccount(string accountId)
+  {
+    string sql = @"
+    SELECT
+    likedPoem.*
+    FROM likedPoem
+    WHERE likedPoem.creatorId = @accountId
+    ;";
+    List<LikedPoem> likedPoems = _db.Query<LikedPoem>(sql, new { accountId }).ToList();
+    return likedPoems;
+
   }
 }
 

@@ -3,7 +3,6 @@ import { AppState } from '@/AppState.js';
 import { Poem } from '@/models/Poem.js';
 import { poemsService } from '@/services/PoemsService.js';
 
-import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
 
 
@@ -19,7 +18,6 @@ const props = defineProps({
 function setActivePoem(poemId) {
   try {
     poemsService.GetPoemById(poemId)
-    logger.log(props.poem?.id, "Setting the ID")
   }
   catch (error) {
     Pop.error(error);

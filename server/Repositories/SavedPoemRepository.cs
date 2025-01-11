@@ -12,9 +12,8 @@ public class SavedPoemRepository
   {
     string sql = @"
         INSERT INTO
-        savedPoem(poemId, bookId, creatorId)
-        VALUES(@PoemId, @BookId, @CreatorId)
-
+        savedPoem(bookId, poemId, creatorId)
+        VALUES(@BookId, @PoemId, @CreatorId);
         SELECT * FROM savedPoem WHERE savedPoem.id = LAST_INSERT_ID();";
 
     SavedPoem savedPoem = _db.Query<SavedPoem>(sql, savedPoemData).FirstOrDefault();

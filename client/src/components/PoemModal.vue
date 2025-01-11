@@ -13,25 +13,24 @@ const account = computed(() => AppState.account)
 const activePoem = computed(() => AppState.poemById)
 
 const savedPoemToBookData = ref({
-  poemId: 0,
-  bookId: 0
+  bookId: 0,
+  poemId: null
 })
 
-// const props = defineProps({
-//   activePoem: { type: Poem, required: true }
-// })
+function likePoem() {
+
+}
 
 async function createSavePoem() {
   try {
     // const poemId = props.activePoem.id
-    savedPoemToBookData.value.poemId = AppState.poemById.id;
-    logger.log('Pizza', savedPoemToBookData.value)
+    savedPoemToBookData.value.poemId = activePoem.value.id;
     await savePoemsService.createSavePoem(savedPoemToBookData.value)
-    logger.log('Yum!', AppState.poemById.id)
+    logger.log('Yum!', activePoem.value.id)
 
     savedPoemToBookData.value = {
-      poemId: 0,
-      bookId: 0
+      bookId: 0,
+      poemId: null
     }
     Modal.getOrCreateInstance('#poem-modal').hide()
     Pop.success('Poem In Book!')
@@ -61,7 +60,7 @@ async function createSavePoem() {
     </div>
     <div class="modal-footer p-1">
       <i class="mdi mdi-eye"> {{ activePoem?.views }}</i>
-      <i class="mdi mdi-heart"></i>
+      <i role="button" @click="likePoem()" class="mdi mdi-heart"></i>
 
       <i class="mdi mdi-comment-edit"></i>
 
@@ -69,15 +68,15 @@ async function createSavePoem() {
 
 
       <div class="dropdown">
-        <form @submit.prevent="createSavePoem()" v-if="account" class="d-flex">
+        <form class="d-flex">
           <select v-model="savedPoemToBookData.bookId" class="form-select form-control no-round-end p-0"
             aria-label="Select a vault to add the picture to">
             <option selected value=0>Select a Book</option>
             <option v-for="book in accountBook" :key="book.id" :value="book.id">
               {{ book.title }}</option>
           </select>
-          <button class="mdi mdi-notebook btn btn-secondary border border-2 rounded-4">{{
-            activePoem?.saves }}</button>
+          <button @click.prevent="createSavePoem()"
+            class="btn btn-success text-light text-center no-round-start">save</button>
         </form>
       </div>
 

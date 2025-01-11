@@ -22,14 +22,14 @@ public class LikedPoemService
         return likedPoem;
     }
 
-    internal List<LikedPoem> GetLikedPoemByProfileId(string profileId, string userId)
-    {
-        if (profileId == userId)
-        {
-            List<LikedPoem> likedPoem = _accountService.GetLikedPoemByAccount(profileId);
-            return likedPoem;
-        }
-        List<LikedPoem> likedPoems = _likedPoemRepository.GetLikedPoemByProfileId(profileId);
-        return likedPoems;
-    }
+    // internal List<LikedPoem> GetLikedPoemByProfileId(string profileId, string userId)
+    // {
+    //     if (profileId == userId)
+    //     {
+    //         List<LikedPoem> likedPoem = _accountService.GetLikedPoemByAccount(profileId);
+    //         return likedPoem;
+    //     }
+    //     List<LikedPoem> likedPoems = _likedPoemRepository.GetLikedPoemByProfileId(profileId);
+    //     return likedPoems;
+    // }
 }

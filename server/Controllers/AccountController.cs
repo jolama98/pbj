@@ -6,15 +6,17 @@ namespace pbj.Controllers;
 [Route("[controller]")]
 public class AccountController : ControllerBase
 {
+  private readonly LikedPoemService _likedPoemService;
   private readonly AccountService _accountService;
   private readonly Auth0Provider _auth0Provider;
+
   private readonly BookService _bookService;
 
-  public AccountController(AccountService accountService, Auth0Provider auth0Provider, BookService bookService)
+  public AccountController(AccountService accountService, Auth0Provider auth0Provider, BookService bookService, LikedPoemService likedPoemService)
   {
     _accountService = accountService;
     _auth0Provider = auth0Provider;
-    _bookService = bookService;
+    _likedPoemService = likedPoemService;
   }
 
   [HttpGet]
@@ -64,7 +66,18 @@ public class AccountController : ControllerBase
   }
 
 
-
-
-
+  [HttpGet("likedPoem")]
+  async public Task<ActionResult<List<LikedPoem>>> GetLikedPoems(string profileId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      List<LikedPoem> likedPoems = _accountService.GetLikedPoemByProfileId(userInfo?.Id);
+      return Ok(likedPoems);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
 }

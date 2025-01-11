@@ -7,6 +7,7 @@ import { socketService } from './SocketService.js'
 import Pop from '@/utils/Pop.js'
 
 
+
 export const AuthService = initialize({
   domain,
   clientId,
@@ -25,6 +26,7 @@ AuthService.on(AUTH_EVENTS.AUTHENTICATED, async function () {
   // NOTE if there is something you want to do once the user is authenticated, place that here
   try {
     await accountService.getAccountBook()
+    await accountService.getLikedPoemsByProfileId()
   }
   catch (error) {
     Pop.error(error);

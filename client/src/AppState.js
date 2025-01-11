@@ -21,8 +21,9 @@ export const AppState = reactive({
   /**@type {import('./models/Book.js').Book[]} */
   myBooks: [],
   /** @type {Book[]} */
-  profileBooks: []
-
+  profileBooks: [],
+  /**@type {import('./models/LikedPoem.js').LikedPoem[]} */
+  likedPoem: [],
 
 })
 

@@ -7,7 +7,6 @@ public class ProfilesController : ControllerBase
     private readonly Auth0Provider _auth0Provider;
     private readonly PoemService _poemService;
     private readonly BookService _bookService;
-    private readonly LikedPoemService _likedPoemService;
     private readonly ProfilesService _profilesService;
 
     public ProfilesController(Auth0Provider auth0Provider, PoemService poemService, ProfilesService profilesService, BookService bookService, LikedPoemService likedPoemService)
@@ -16,7 +15,7 @@ public class ProfilesController : ControllerBase
         _poemService = poemService;
         _profilesService = profilesService;
         _bookService = bookService;
-        _likedPoemService = likedPoemService;
+
     }
 
     [HttpGet("{profileId}")]
@@ -62,21 +61,4 @@ public class ProfilesController : ControllerBase
         }
 
     }
-
-    [HttpGet("{profileId}/likedPoem")]
-    async public Task<ActionResult<List<LikedPoem>>> GetLikedPoems(string profileId)
-    {
-        try
-        {
-            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            List<LikedPoem> likedPoems = _likedPoemService.GetLikedPoemByProfileId(profileId, userInfo.Id);
-            return Ok(likedPoems);
-        }
-        catch (Exception exception)
-        {
-            return BadRequest(exception.Message);
-        }
-    }
-
-
 }

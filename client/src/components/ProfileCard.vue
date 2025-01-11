@@ -8,6 +8,7 @@ import CreateBookModal from './CreateBookModal.vue';
 
 const identity = computed(() => AppState.identity)
 const account = computed(() => AppState.account)
+const likedPoems = computed(() => AppState.likedPoem)
 const books = computed(() => AppState.profileBooks)
 
 
@@ -89,7 +90,7 @@ async function logout() {
           <button class="btn btn-outline-info mb-4 rounded-4">{{ books.length }} Book</button>
           <button class="btn btn-outline-info mb-4 rounded-4">All</button>
           <button class="btn btn-outline-info mb-4 rounded-4">Saved</button>
-          <button class="btn btn-outline-info mb-4 rounded-4">Liked</button>
+          <button class="btn btn-outline-info mb-4 rounded-4">{{ likedPoems.length }} Liked</button>
 
 
 

@@ -46,9 +46,16 @@ public class AccountService
     return book;
   }
 
-  internal List<LikedPoem> GetLikedPoemByAccount(string profileId)
+  internal List<LikedPoem> GetLikedPoemByProfileId(string accountId)
   {
-    List<LikedPoem> likedPoems = _repo.GetLikedPoemByAccount(profileId);
+    List<LikedPoem> likedPoems = _repo.GetLikedPoemByAccount(accountId);
     return likedPoems;
   }
+
+
+  // internal List<LikedPoem> GetLikedPoemByAccount(string profileId)
+  // {
+  //   List<LikedPoem> likedPoems = _repo.GetLikedPoemByAccount(profileId);
+  //   return likedPoems;
+  // }
 }

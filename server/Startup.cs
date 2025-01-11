@@ -52,6 +52,9 @@ public class Startup
     services.AddScoped<SavedPoemRepository>();
     services.AddScoped<SavedPoemService>();
 
+    services.AddScoped<LikedPoemRepository>();
+    services.AddScoped<LikedPoemService>();
+
   }
 
   private void ConfigureCors(IServiceCollection services)

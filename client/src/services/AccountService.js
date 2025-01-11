@@ -6,6 +6,8 @@ import { api } from './AxiosService.js'
 
 class AccountService {
 
+
+
   async updateAccount(accountData) {
     const response = await api.put('/account', accountData)
     logger.log('UPDATED ACCOUNT 🤵', response.data)
@@ -27,6 +29,13 @@ class AccountService {
     logger.log("😂", response.data)
     const myBooks = response.data.map(myBooks => new Book(myBooks))
     AppState.profileBooks = myBooks
+  }
+
+  async getLikedPoemsByProfileId() {
+    const response = await api.get('account/likedPoem')
+    logger.log('Got poems for profile', response.data)
+    const likedPoems = response.data.map(likedPoems => new Book(likedPoems))
+    AppState.likedPoem = likedPoems
   }
 
 }

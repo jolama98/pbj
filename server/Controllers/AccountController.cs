@@ -51,7 +51,7 @@ public class AccountController : ControllerBase
 
 
   [HttpGet("book")]
-  public async Task<ActionResult<List<Book>>> GetVaultByAccount()
+  public async Task<ActionResult<List<Book>>> GetBookByAccount()
   {
     try
     {
@@ -65,6 +65,21 @@ public class AccountController : ControllerBase
     }
   }
 
+
+  // [HttpGet("vaults")]
+  // public async Task<ActionResult<List<Vault>>> GetVaultByAccount()
+  // {
+  //   try
+  //   {
+  //     Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+  //     List<Vault> vault = _accountService.GetVaultByAccount(userInfo?.Id);
+  //     return Ok(vault);
+  //   }
+  //   catch (Exception exception)
+  //   {
+  //     return BadRequest(exception.Message);
+  //   }
+  // }
 
   [HttpGet("likedPoem")]
   async public Task<ActionResult<List<LikedPoem>>> GetLikedPoems(string profileId)

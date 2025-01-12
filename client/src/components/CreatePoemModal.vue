@@ -9,7 +9,8 @@ const poemData = ref({
   body: '',
   img: '',
   tags: '',
-  isArchived: false
+  isArchived: false,
+  isLiked: false
 
 })
 
@@ -21,7 +22,8 @@ async function createPoem() {
       body: '',
       img: '',
       tags: '',
-      isArchived: false
+      isArchived: false,
+      isLiked: false
     }
     Modal.getOrCreateInstance('#create-poem').hide()
     Pop.success('Report submitted!')
@@ -35,9 +37,6 @@ async function createPoem() {
 
 
 <template>
-
-
-
   <form @submit.prevent="createPoem()">
     <div class="mb-3">
       <label for="poemTitle" class="form-label fw-bold fs-3">Poem Title</label>

@@ -83,7 +83,7 @@ async function deletePoem() {
 
         <div class="card-footer justify-content-end d-flex">
 
-
+          <!-- {{ props.poem.creator.name }} -->
           <small class="text-body-secondary">
             <i class="mdi mdi-eye p-1"> {{ props.poem.views }}</i></small>
           <small class="text-body-secondary">

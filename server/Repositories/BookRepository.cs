@@ -1,6 +1,3 @@
-
-
-
 namespace pbj.Repositories;
 
 public class BookRepository
@@ -33,7 +30,7 @@ public class BookRepository
     internal void DestroyBook(int bookId)
     {
         string sql = @"
-         DELETE FROM books WHERE id = @bookId LIMIT 1;
+        DELETE FROM books WHERE id = @bookId LIMIT 1;
         ;";
         int rowsAffected = _db.Execute(sql, new { bookId });
         if (rowsAffected == 0) throw new Exception("DELETE FAILED");
@@ -49,6 +46,7 @@ public class BookRepository
         FROM books
         JOIN accounts ON accounts.id = books.creatorId
         WHERE books.id = @bookId
+        GROUP BY (book.id)
         ;";
 
         Book book = _db.Query<Book, Profile, Book>(sql, JoinCreator, new
@@ -75,6 +73,7 @@ public class BookRepository
         }).ToList();
         return book;
     }
+
 
     private Book JoinCreator(Book book, Profile profile)
     {

@@ -1,5 +1,5 @@
 import { DBItem } from "./DBItem.js"
-import { Profile } from "./Profile.js"
+
 
 export class Poem extends DBItem {
   constructor(data) {
@@ -15,8 +15,7 @@ export class Poem extends DBItem {
     this.isLiked = data.isLiked
     this.authorId = data.authorId
     this.imgUrl = data.imgUrl
-    this.creator = data.creator ? new Profile(data.creator) : null
-
+    this.creator = data.creator
   }
 }
 

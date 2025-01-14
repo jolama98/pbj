@@ -14,8 +14,10 @@ public class SavedPoemRepository
         INSERT INTO
         savedPoem(bookId, poemId, creatorId)
         VALUES(@BookId, @PoemId, @CreatorId);
-        SELECT * FROM savedPoem
-        JOIN accounts ON accounts.id = savedPoem.creatorId
+
+        SELECT
+        *
+        FROM savedPoem
         WHERE savedPoem.id = LAST_INSERT_ID();";
 
     SavedPoem savedPoem = _db.Query<SavedPoem>(sql, savedPoemData).FirstOrDefault();

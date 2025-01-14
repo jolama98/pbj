@@ -1,4 +1,5 @@
 import { DBItem } from "./DBItem.js"
+import { Like } from "./Like.js"
 
 
 export class Poem extends DBItem {
@@ -16,6 +17,8 @@ export class Poem extends DBItem {
     this.authorId = data.authorId
     this.imgUrl = data.imgUrl
     this.creator = data.creator
+    /**@type {Like[]} */
+    this.likes = data.likes
   }
 }
 

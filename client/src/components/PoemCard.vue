@@ -2,6 +2,7 @@
 import { AppState } from '@/AppState.js';
 import { Poem } from '@/models/Poem.js';
 import { poemsService } from '@/services/PoemsService.js';
+import { logger } from '@/utils/Logger.js';
 
 import Pop from '@/utils/Pop.js';
 
@@ -15,6 +16,17 @@ const props = defineProps({
   poem: { type: Poem, required: true }
 })
 
+function likePoem() {
+  try {
+    const poemId = { poemId: props.poem.id }
+    poemsService.likePoem(poemId)
+  }
+  catch (error) {
+    Pop.error("Could not like poem", 'error');
+    logger.log(error)
+  }
+}
+
 function setActivePoem(poemId) {
   try {
     poemsService.GetPoemById(poemId)
@@ -23,31 +35,6 @@ function setActivePoem(poemId) {
     Pop.error(error);
   }
 }
-
-// const savedPoemToBookData = ref({
-//   poemId: 0,
-//   bookId: 0
-// })
-
-
-// async function createSavePoem(props) {
-//   try {
-//     // const poemId = props.poem.id
-//     savedPoemToBookData.value.poemId = props.poem?.id;
-//     logger.log(props.poem?.id, 'Hi')
-//     await savePoemsService.createSavePoem(savedPoemToBookData.value)
-
-//     Modal.getOrCreateInstance('#poem-modal').hide()
-//     savedPoemToBookData.value = {
-//       poemId: 0,
-//       bookId: 0
-//     }
-//     // Pop.success('Poem In Book!')
-//   }
-//   catch (error) {
-//     Pop.error(error);
-//   }
-// }
 
 async function deletePoem() {
   try {
@@ -82,12 +69,10 @@ async function deletePoem() {
         </div>
 
         <div class="card-footer justify-content-end d-flex">
-
-          <!-- {{ props.poem.creator.name }} -->
           <small class="text-body-secondary">
             <i class="mdi mdi-eye p-1"> {{ props.poem.views }}</i></small>
           <small class="text-body-secondary">
-            <i class="mdi mdi-heart p-1">{{ props.poem.likes }}</i></small>
+            <i @click="likePoem()" class="mdi mdi-heart p-1">{{ props.poem.likes }}</i></small>
         </div>
       </div>
     </div>

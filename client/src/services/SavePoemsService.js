@@ -6,7 +6,7 @@ class SavePoemsService {
 
   async createSavePoem(createSavePoemData) {
     logger.log("WHY", createSavePoemData)
-    console.log(createSavePoemData)
+    // console.log(createSavePoemData)
 
     const response = await api.post('api/savedpoem', createSavePoemData)
     logger.log("SAM I AM", response.data)

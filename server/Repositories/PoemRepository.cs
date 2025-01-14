@@ -129,7 +129,8 @@ public class PoemRepository
         Set
         title = @title,
         body = @body,
-        views = @views
+        views = @views,
+        likes = @likes
         WHERE id = @Id LIMIT 1;";
 
         int rowsAffected = _db.Execute(sql, poemToUpdate);

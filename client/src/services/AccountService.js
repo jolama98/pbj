@@ -26,14 +26,14 @@ class AccountService {
 
   async getAccountBook() {
     const response = await api.get('account/book')
-    logger.log("😂", response.data)
+    // logger.log("😂", response.data)
     const myBooks = response.data.map(myBooks => new Book(myBooks))
     AppState.profileBooks = myBooks
   }
 
   async getLikedPoemsByProfileId() {
     const response = await api.get('account/likedPoem')
-    logger.log('Got poems for profile', response.data)
+    // logger.log('Got poems for profile', response.data)
     const likedPoems = response.data.map(likedPoems => new Book(likedPoems))
     AppState.likedPoem = likedPoems
   }

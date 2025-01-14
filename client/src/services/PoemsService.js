@@ -2,8 +2,17 @@ import { logger } from "@/utils/Logger.js"
 import { api } from "./AxiosService.js"
 import { Poem } from "@/models/Poem.js"
 import { AppState } from "@/AppState.js"
+import { LikedPoem } from "@/models/Like.js"
 
 class PoemsService {
+  async likePoem(poemId) {
+    const response = await api.post('api/likedpoem', poemId)
+    const newLike = new LikedPoem(response.data)
+    const foundPoem = AppState.poems.find((poem) => poem.id == poemId.poemId)
+    foundPoem.likes.push(newLike)
+    logger.log(response)
+
+  }
   async searchPoem(query) {
     try {
       const response = await api.get('api/poem/search', {

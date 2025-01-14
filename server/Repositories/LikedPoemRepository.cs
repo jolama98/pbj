@@ -15,9 +15,9 @@ public class LikedPoemRepository
     {
         string sql = @"
         INSERT INTO
-    likedPoem (poemId, creatorId)
-    VALUES (@PoemId, @CreatorId);
-    SELECT * FROM likedPoem WHERE likedPoem.id = LAST_INSERT_ID();";
+        likedPoem (poemId, creatorId)
+        VALUES (@PoemId, @CreatorId);
+        SELECT * FROM likedPoem WHERE likedPoem.id = LAST_INSERT_ID();";
 
         LikedPoem likedPoem = _db.Query<LikedPoem>(sql, likedPoemData).FirstOrDefault();
         return likedPoem;
@@ -28,7 +28,7 @@ public class LikedPoemRepository
         string sql = @"
         SELECT
         likedPoem.*,
-         accounts.*
+        accounts.*
         FROM
         likedPoem
         JOIN accounts ON accounts.id = likedPoem.creatorId

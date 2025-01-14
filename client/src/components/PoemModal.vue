@@ -1,6 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
-import { Poem } from '@/models/Poem.js';
+
 import { savePoemsService } from '@/services/SavePoemsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
@@ -8,29 +8,42 @@ import { Modal } from 'bootstrap';
 import { computed, ref } from 'vue';
 
 
+// const account = computed(() => AppState.account)
 const accountBook = computed(() => AppState.profileBooks)
-const account = computed(() => AppState.account)
 const activePoem = computed(() => AppState.poemById)
 
 const savedPoemToBookData = ref({
   bookId: 0,
-  poemId: null
+  poemId: 0
 })
 
-function likePoem() {
+// const props = defineProps({
+//   poem: { type: Poem, required: true }
+// })
 
-}
+
+
+// function likePoem() {
+//   try {
+//     const poemId = activePoem.value.id
+//     logger.log(poemId)
+//     poemsService.likePoem(poemId)
+//   }
+//   catch (error) {
+//     Pop.error("Could not like poem", 'error');
+//     logger.log(error)
+//   }
+// }
 
 async function createSavePoem() {
   try {
-    // const poemId = props.activePoem.id
     savedPoemToBookData.value.poemId = activePoem.value.id;
     await savePoemsService.createSavePoem(savedPoemToBookData.value)
     logger.log('Yum!', activePoem.value.id)
 
     savedPoemToBookData.value = {
       bookId: 0,
-      poemId: null
+      poemId: 0
     }
     Modal.getOrCreateInstance('#poem-modal').hide()
     Pop.success('Poem In Book!')
@@ -60,7 +73,8 @@ async function createSavePoem() {
     </div>
     <div class="modal-footer p-1">
       <i class="mdi mdi-eye"> {{ activePoem?.views }}</i>
-      <i role="button" @click="likePoem()" class="mdi mdi-heart"></i>
+
+      <i class="mdi mdi-heart p-1">{{ activePoem?.likes }}</i>
 
       <i class="mdi mdi-comment-edit"></i>
 
@@ -79,19 +93,6 @@ async function createSavePoem() {
             class="btn btn-success text-light text-center no-round-start">save</button>
         </form>
       </div>
-
-      <!-- <div class="d-flex align-items-center">
-        <form v-if="account" @submit.prevent="createVaultKeep()">
-          <select title="select a vault" v-model="vaultKeepData.vaultId" class="btn dropdown-toggle"
-            aria-label="Select a Vault" required>
-            <option selected :value="0" disabled>Vault</option>
-            <option v-for="vault in myVaults" :key="vault.id" :value="vault.id">{{ vault.name }}</option>
-          </select>
-          <button title="save to vault" type="submit" class="btn btn-success mx-2 text-light">save</button>
-        </form>
-      </div> -->
-
-
     </div>
 
   </div>

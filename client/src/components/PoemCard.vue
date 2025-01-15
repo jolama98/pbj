@@ -68,6 +68,8 @@ async function deletePoem() {
           <small class="text-body-secondary">
             <i class="mdi mdi-eye p-1"> {{ props.poem.views }}</i></small>
           <small class="text-body-secondary">
+            <i class="mdi mdi-sack p-1"> {{ props.poem.saves }}</i></small>
+          <small class="text-body-secondary">
             <i @click="likePoem()" class="mdi mdi-heart p-1">{{ props.poem.likes }}</i></small>
         </div>
       </div>

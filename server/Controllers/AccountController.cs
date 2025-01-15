@@ -11,12 +11,15 @@ public class AccountController : ControllerBase
   private readonly Auth0Provider _auth0Provider;
 
   private readonly BookService _bookService;
+  private readonly SavedPoemService _savedPoemService;
 
-  public AccountController(AccountService accountService, Auth0Provider auth0Provider, BookService bookService, LikedPoemService likedPoemService)
+  public AccountController(AccountService accountService, Auth0Provider auth0Provider, BookService bookService, LikedPoemService likedPoemService, SavedPoemService savedPoemService)
   {
     _accountService = accountService;
     _auth0Provider = auth0Provider;
     _likedPoemService = likedPoemService;
+    _savedPoemService = savedPoemService;
+    _bookService = bookService;
   }
 
   [HttpGet]
@@ -65,21 +68,20 @@ public class AccountController : ControllerBase
     }
   }
 
-
-  // [HttpGet("vaults")]
-  // public async Task<ActionResult<List<Vault>>> GetVaultByAccount()
-  // {
-  //   try
-  //   {
-  //     Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-  //     List<Vault> vault = _accountService.GetVaultByAccount(userInfo?.Id);
-  //     return Ok(vault);
-  //   }
-  //   catch (Exception exception)
-  //   {
-  //     return BadRequest(exception.Message);
-  //   }
-  // }
+  [HttpGet("savedPoem")]
+  async public Task<ActionResult<List<SavedPoem>>> GetAllSavedPoems(string profileId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      List<SavedPoem> savedPoems = _accountService.GetAllSavedPoems(userInfo?.Id);
+      return Ok(savedPoems);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
 
   [HttpGet("likedPoem")]
   async public Task<ActionResult<List<LikedPoem>>> GetLikedPoems(string profileId)

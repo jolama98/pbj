@@ -18,23 +18,6 @@ const savedPoemToBookData = ref({
   poemId: 0
 })
 
-// const props = defineProps({
-//   poem: { type: Poem, required: true }
-// })
-
-
-
-// function likePoem() {
-//   try {
-//     const poemId = activePoem.value.id
-//     logger.log(poemId)
-//     poemsService.likePoem(poemId)
-//   }
-//   catch (error) {
-//     Pop.error("Could not like poem", 'error');
-//     logger.log(error)
-//   }
-// }
 
 async function createSavePoem() {
   try {
@@ -75,6 +58,7 @@ async function createSavePoem() {
     <div class="modal-footer p-1">
       <i class="mdi mdi-eye"> {{ activePoem?.views }}</i>
 
+      <i class="mdi mdi-sack p-1">{{ activePoem?.saves }}</i>
       <i class="mdi mdi-heart p-1">{{ activePoem?.likes }}</i>
 
       <i class="mdi mdi-comment-edit"></i>

@@ -52,10 +52,9 @@ public class AccountService
     return likedPoems;
   }
 
-
-  // internal List<LikedPoem> GetLikedPoemByAccount(string profileId)
-  // {
-  //   List<LikedPoem> likedPoems = _repo.GetLikedPoemByAccount(profileId);
-  //   return likedPoems;
-  // }
+  internal List<SavedPoem> GetAllSavedPoems(string accountId)
+  {
+    List<SavedPoem> savedPoems = _repo.GetAllSavedPoems(accountId);
+    return savedPoems;
+  }
 }

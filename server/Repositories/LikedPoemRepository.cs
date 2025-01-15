@@ -34,7 +34,7 @@ public class LikedPoemRepository
         JOIN accounts ON accounts.id = likedPoem.creatorId
         WHERE
         accounts.id = @profileId
-        GROUP BY likedPoem.id;";
+        ;";
 
         List<LikedPoem> likedPoems = _db.Query<LikedPoem, Profile, LikedPoem>(sql, (likedPoem, profile) =>
         {

@@ -1,5 +1,6 @@
 
 
+
 namespace pbj.Repositories;
 public class AccountsRepository
 {
@@ -62,22 +63,6 @@ public class AccountsRepository
     return book;
   }
 
-  // internal List<Vault> GetAccountVaults(string accountId)
-  // {
-  //   string sql = @"
-  //   SELECT
-  //   vaults.*
-  //   FROM vaults
-  //   WHERE vaults.creatorId = @accountId
-  //   ;";
-
-  //   List<Vault> vault = _db.Query<Vault>(sql, new
-  //   {
-  //     accountId
-  //   }).ToList();
-  //   return vault;
-  // }
-
 
   internal List<LikedPoem> GetLikedPoemByAccount(string accountId)
   {
@@ -91,6 +76,19 @@ public class AccountsRepository
     return likedPoems;
   }
 
+
+  internal List<SavedPoem> GetAllSavedPoems(string accountId)
+  {
+    string sql = @"
+    SELECT 
+    savedPoem.*
+    FROM savedPoem
+    WHERE savedPoem.creatorId = @accountId
+    ;";
+    List<SavedPoem> savedPoems = _db.Query<SavedPoem>(sql, new { accountId }).ToList();
+    return savedPoems;
+
+  }
   private Account JoinCreator(Account account, Profile profile)
   {
     account.Creator = profile;

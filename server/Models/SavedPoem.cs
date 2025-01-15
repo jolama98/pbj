@@ -6,6 +6,7 @@ public class SavedPoem : RepoItem<int>
     public int PoemId { get; set; }
     public int BookId { get; set; }
     public string CreatorId { get; set; }
+    public Profile Creator { get; set; }
 }
 public class SavedPoemPoem : Poem
 {

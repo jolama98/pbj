@@ -39,6 +39,24 @@ public class SavedPoemRepository
     }
   }
 
+  // internal List<SavedPoem> GetAllSavedPoems()
+  // {
+
+  //   string sql = @"
+  //   SELECT
+  //   savedPoem.*,
+  //   accounts.*
+  //   FROM savedPoem
+  //   JOIN accounts ON accounts.id = savedPoem.creatorId
+  //   ;";
+  //   List<SavedPoem> savedPoems = _db.Query<SavedPoem, Profile, SavedPoem>(sql, (savedPoems, profile) =>
+  //   {
+  //     savedPoems.Creator = profile;
+  //     return savedPoems;
+  //   }).ToList();
+  //   return savedPoems;
+  // }
+
   internal SavedPoem GetBookPoemPoemById(int savedPoemId)
   {
     string sql = @"
@@ -74,11 +92,11 @@ public class SavedPoemRepository
   }
 
 
-  // private SavedPoem JoinCreator(SavedPoem savedPoem, Profile profile)
-  // {
-  //   savedPoem.Creator = profile;
-  //   return savedPoem;
-  // }
+  private SavedPoem JoinCreator(SavedPoem savedPoem, Profile profile)
+  {
+    savedPoem.Creator = profile;
+    return savedPoem;
+  }
 
 }
 

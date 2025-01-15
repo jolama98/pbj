@@ -45,9 +45,7 @@ public class BookRepository
         accounts.*
         FROM books
         JOIN accounts ON accounts.id = books.creatorId
-        WHERE books.id = @bookId
-        GROUP BY (book.id)
-        ;";
+        WHERE books.id = @bookId;";
 
         Book book = _db.Query<Book, Profile, Book>(sql, JoinCreator, new
         {

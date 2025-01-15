@@ -3,14 +3,10 @@ import { AppState } from '@/AppState.js';
 import { Poem } from '@/models/Poem.js';
 import { poemsService } from '@/services/PoemsService.js';
 import { logger } from '@/utils/Logger.js';
-
 import Pop from '@/utils/Pop.js';
-
-
 import { computed } from 'vue';
 
 const account = computed(() => AppState.account)
-
 
 const props = defineProps({
   poem: { type: Poem, required: true }

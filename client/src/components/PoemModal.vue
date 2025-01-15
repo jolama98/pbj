@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import { poemsService } from '@/services/PoemsService.js';
 
 import { savePoemsService } from '@/services/SavePoemsService.js';
 import { logger } from '@/utils/Logger.js';

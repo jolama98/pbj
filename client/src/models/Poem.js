@@ -1,7 +1,5 @@
 import { DBItem } from "./DBItem.js"
-import { Like } from "./Like.js"
-
-
+import { LikedPoem } from "./LikedPoem.js"
 export class Poem extends DBItem {
   constructor(data) {
     super(data)
@@ -10,14 +8,14 @@ export class Poem extends DBItem {
     this.body = data.body
     this.views = data.views
     this.tags = data.tags
-    this.likes = data.likes
+    // this.likes = data.likes
     this.saves = data.saves
     this.isArchived = data.isArchived
     this.isLiked = data.isLiked
     this.authorId = data.authorId
     this.imgUrl = data.imgUrl
     this.creator = data.creator
-    /**@type {Like[]} */
+    /**@type {LikedPoem[]} */
     this.likes = data.likes
   }
 }

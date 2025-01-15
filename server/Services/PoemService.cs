@@ -53,7 +53,6 @@ public class PoemService
         {
             throw new Exception("YOU CANNOT UPDATE A POEM YOU DID NOT CREATE, THAT IS FORBIDDEN, PLEASE IGNORE THE 400 ERROR CODE, IT SHOULD BE 403");
         }
-
         poemToUpdate.Title = poemData.Title ?? poemData.Title;
         poemToUpdate.Body = poemData.Body ?? poemData.Body;
         _poemRepository.UpdatePoem(poemToUpdate);

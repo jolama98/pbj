@@ -6,9 +6,10 @@ public class SavedPoemService
     private readonly SavedPoemRepository _savedPoemRepository;
     private readonly BookService _bookService;
 
-    public SavedPoemService(SavedPoemRepository savedPoemRepository)
+    public SavedPoemService(SavedPoemRepository savedPoemRepository, BookService bookService)
     {
         _savedPoemRepository = savedPoemRepository;
+        _bookService = bookService;
     }
 
     internal SavedPoem CreateSavedPoem(SavedPoem savedPoemData, string userId)

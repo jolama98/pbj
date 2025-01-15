@@ -18,20 +18,9 @@ public class LikedPoemService
     internal LikedPoem CreateLikedPoem(LikedPoem likedPoemData, string userId)
     {
         Poem poem = _poemService.GetPoemById(likedPoemData.PoemId, userId);
-
+        poem.Likes += 1;
 
         LikedPoem likedPoem = _likedPoemRepository.CreateLikedPoem(likedPoemData);
         return likedPoem;
     }
-
-    // internal List<LikedPoem> GetLikedPoemByProfileId(string profileId, string userId)
-    // {
-    //     if (profileId == userId)
-    //     {
-    //         List<LikedPoem> likedPoem = _accountService.GetLikedPoemByAccount(profileId);
-    //         return likedPoem;
-    //     }
-    //     List<LikedPoem> likedPoems = _likedPoemRepository.GetLikedPoemByProfileId(profileId);
-    //     return likedPoems;
-    // }
 }

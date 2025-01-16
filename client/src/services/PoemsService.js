@@ -5,15 +5,7 @@ import { AppState } from "@/AppState.js"
 import { LikedPoem } from "@/models/LikedPoem.js"
 
 class PoemsService {
-  async likePoem(poemId) {
-    const response = await api.post('api/likedpoem', poemId)
-    const newLike = new LikedPoem(response.data)
-    const foundPoem = AppState.poems.find((poem) => poem.id == poemId.poemId)
 
-    foundPoem.likes.push(newLike)
-    logger.log(response)
-
-  }
   async searchPoem(query) {
     try {
       const response = await api.get('api/poem/search', {

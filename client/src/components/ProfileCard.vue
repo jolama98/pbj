@@ -1,12 +1,11 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import { AuthService } from '@/services/AuthService.js';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import ModalWrapper from './ModalWrapper.vue';
 import CreatePoemModal from './CreatePoemModal.vue';
 import CreateBookModal from './CreateBookModal.vue';
-import { savePoemsService } from '@/services/SavePoemsService.js';
-import Pop from '@/utils/Pop.js';
+
 
 const identity = computed(() => AppState.identity)
 const account = computed(() => AppState.account)

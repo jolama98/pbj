@@ -5,19 +5,24 @@ import ProfileCard from '../components/ProfileCard.vue';
 import { poemsService } from '@/services/PoemsService.js';
 
 import Pop from '@/utils/Pop.js';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import ModalWrapper from '@/components/ModalWrapper.vue';
 import PoemModal from '@/components/PoemModal.vue';
+import { logger } from '@/utils/Logger.js';
 
 
 const poems = computed(() => AppState.poems)
-
+watch(() => AppState.poemById, () => {
+  getAllPoems()
+  logger.log('Watching set active poems is working!!!!')
+})
 
 
 onMounted(() => {
   getAllPoems()
-  AppState.activeProfile == null
+
 })
+
 
 async function getAllPoems() {
   try {
@@ -44,7 +49,7 @@ async function getAllPoems() {
         </div>
         <div class="col-md-8 col-12 pt-3">
           <div v-for="poem in poems" :key="poem.id" class="pb-3">
-            <PoemCard :poem="poem" data-bs-toggle="modal" data-bs-target="#poem-modal" />
+            <PoemCard :poem="poem" />
           </div>
 
         </div>

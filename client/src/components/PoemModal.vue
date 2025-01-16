@@ -1,13 +1,10 @@
 <script setup>
 import { AppState } from '@/AppState.js';
-import { poemsService } from '@/services/PoemsService.js';
-
 import { savePoemsService } from '@/services/SavePoemsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
 import { Modal } from 'bootstrap';
 import { computed, ref } from 'vue';
-
 
 // const account = computed(() => AppState.account)
 const accountBook = computed(() => AppState.profileBooks)
@@ -17,7 +14,6 @@ const savedPoemToBookData = ref({
   bookId: 0,
   poemId: 0
 })
-
 
 async function createSavePoem() {
   try {

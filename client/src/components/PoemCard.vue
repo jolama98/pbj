@@ -1,13 +1,16 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import { Poem } from '@/models/Poem.js';
+import { likedPoemService } from '@/services/LikedPoemService.js';
 import { poemsService } from '@/services/PoemsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
+import { Modal } from 'bootstrap';
 import { computed } from 'vue';
 
 const account = computed(() => AppState.account)
-
+// const activeProfile = computed(() => AppState.activeProfile)
+const poemId = computed(() => AppState.poemById)
 const props = defineProps({
   poem: { type: Poem, required: true }
 })
@@ -15,14 +18,25 @@ const props = defineProps({
 function likePoem() {
   try {
     const poemId = { poemId: props.poem.id }
-    poemsService.likePoem(poemId)
+    likedPoemService.createLikePoem(poemId)
   }
   catch (error) {
     Pop.error("Could not like poem", 'error');
     logger.log(error)
   }
 }
+// watch(() => AppState.poemById, () => {
+//   getPoemById()
+// })
 
+// function getPoemById() {
+//   try {
+//     poemsService.GetPoemById(poemId)
+//   }
+//   catch (error) {
+//     Pop.error(error);
+//   }
+// }
 function setActivePoem(poemId) {
   try {
     poemsService.GetPoemById(poemId)
@@ -39,6 +53,7 @@ async function deletePoem() {
       Pop.toast("action canceled successfully", 'info', 'center')
       return
     }
+    Modal.getOrCreateInstance('#poem-modal').hide()
     await poemsService.deletePoem(props.poem.id)
     Pop.success("Poem Deleted!")
   }
@@ -54,7 +69,8 @@ async function deletePoem() {
   <div class="card">
     <div v-if="poem" class="container-fluid">
       <div class="row">
-        <div class="card-body" role="button" @click="setActivePoem(props.poem.id)">
+        <div class="card-body" data-bs-toggle="modal" data-bs-target="#poem-modal" role="button"
+          @click="setActivePoem(props.poem.id)">
           <div class="d-flex align-items-center justify-content-between  ">
             <h5 class="card-title ">{{ props.poem.title }}</h5>
             <i v-if="props.poem.authorId == account?.id" type="button" @click="deletePoem()"
@@ -64,6 +80,7 @@ async function deletePoem() {
           <p class="card-text text-stop">{{ props.poem.body }}</p>
         </div>
 
+
         <div class="card-footer justify-content-end d-flex">
           <small class="text-body-secondary">
             <i class="mdi mdi-eye p-1"> {{ props.poem.views }}</i></small>
@@ -72,6 +89,7 @@ async function deletePoem() {
           <small class="text-body-secondary">
             <i @click="likePoem()" class="mdi mdi-heart p-1">{{ props.poem.likes }}</i></small>
         </div>
+
       </div>
     </div>
   </div>

@@ -3,6 +3,7 @@ import { api } from "./AxiosService.js"
 import { Poem } from "@/models/Poem.js"
 import { AppState } from "@/AppState.js"
 import { LikedPoem } from "@/models/LikedPoem.js"
+import Pop from "@/utils/Pop.js"
 
 class PoemsService {
 
@@ -28,7 +29,6 @@ class PoemsService {
 
   async getAllPoems() {
     const response = await api.get('api/poem')
-    // logger.log('Got all poems - poems service', response.data)
     const newPoems = response.data.map(poemData => new Poem(poemData))
     AppState.poems = newPoems
   }

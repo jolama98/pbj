@@ -5,22 +5,27 @@ import ProfileCard from '../components/ProfileCard.vue';
 import { poemsService } from '@/services/PoemsService.js';
 
 import Pop from '@/utils/Pop.js';
-import { computed, onMounted, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import ModalWrapper from '@/components/ModalWrapper.vue';
 import PoemModal from '@/components/PoemModal.vue';
-import { logger } from '@/utils/Logger.js';
 
 
 const poems = computed(() => AppState.poems)
+
+
 watch(() => AppState.poemById, () => {
   getAllPoems()
-  logger.log('Watching set active poems is working!!!!')
 })
 
 
+// // watch works directly on a ref
+// watch(question, async (newQuestion, oldQuestion) => {
+//   if (newQuestion.includes('?')) {
+//     loading.value = true
+//     answer.
+
 onMounted(() => {
   getAllPoems()
-
 })
 
 
@@ -39,20 +44,20 @@ async function getAllPoems() {
 <template>
   <div class="container-fluid">
     <section class="row">
-
-
       <div class="d-flex flex-row justify-content-center">
+
         <div class="col-md-3 pt-3">
           <div class="d-none d-md-block">
             <ProfileCard />
           </div>
         </div>
+
         <div class="col-md-8 col-12 pt-3">
           <div v-for="poem in poems" :key="poem.id" class="pb-3">
             <PoemCard :poem="poem" />
           </div>
-
         </div>
+
       </div>
     </section>
   </div>

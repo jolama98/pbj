@@ -13,15 +13,14 @@ public class CommentRepository
     {
         string sql = @"
         INSERT INTO
-        comment(title, body, creatorId)
-        VALUES(@title, @body, @creatorId);
+        comments( body, poemId, creatorId)
+        VALUES( @body, @poemId, @creatorId);
 
         SELECT
-        comment.*,
-        accounts.*
-        FROM comment
-        JOIN accounts ON accounts.id = comment.creatorId
-        WHERE comment.id = LAST_INSERT_ID();";
+        *
+        FROM comments
+         JOIN accounts ON accounts.id = comments.creatorId
+        WHERE comments.id = LAST_INSERT_ID();";
 
         Comment comment = _db.Query<Comment, Profile, Comment>(sql, JoinCreator, commentData).FirstOrDefault();
         return comment;
@@ -29,7 +28,7 @@ public class CommentRepository
 
     internal void DestroyComment(int commentId)
     {
-        string sql = "DELETE FROM comment WHERE id = @comment LIMIT 1";
+        string sql = "DELETE FROM comments WHERE id = @comment LIMIT 1";
         int rowsAffected = _db.Execute(sql, new
         {
             commentId
@@ -42,11 +41,11 @@ public class CommentRepository
     {
         string sql = @"
         SELECT
-        comment.*,
+        comments.*,
         accounts.*
-        FROM comment
-        JOIN accounts ON accounts.id = comment.creatorId
-        GROUP BY (comment.id)
+        FROM comments
+        JOIN accounts ON accounts.id = comments.creatorId
+        GROUP BY (comments.id)
         ;";
 
         List<Comment> comment = _db.Query<Comment, Profile, Comment>(sql, (comment, profile) =>
@@ -61,12 +60,12 @@ public class CommentRepository
     {
         string sql = @"
             SELECT
-            comment.*
+            comments.*
             account.*
-            FROM comment
-            JOIN accounts ON accounts.id = comment.creatorId
-            WHERE comment.id = @commentId
-            GROUP BY (comment.id)
+            FROM comments
+            JOIN accounts ON accounts.id = comments.creatorId
+            WHERE comments.id = @comments
+            GROUP BY (comments.id)
         ;";
 
         Comment comment = _db.Query<Comment, Profile, Comment>(sql, JoinCreator, new
@@ -80,7 +79,7 @@ public class CommentRepository
     internal void UpdateComment(Comment commentToUpdate)
     {
         string sql = @"
-        UPDATE comment
+        UPDATE comments
         Set
         title = @title,
         body = @body,

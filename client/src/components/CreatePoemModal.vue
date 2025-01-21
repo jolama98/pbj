@@ -41,19 +41,19 @@ async function createPoem() {
     <div class="mb-3">
       <label for="poemTitle" class="form-label fw-bold fs-3">Poem Title</label>
       <input v-model="poemData.title" type="text" class="form-control" id="poemTitle" aria-describedby="titleHelp"
-        required maxlength="20">
+        required maxlength="20" minlength="1">
     </div>
 
     <div class="mb-3">
       <label for="poemBody" class="form-label fw-bold">Body</label>
-      <textarea v-model="poemData.body" type="text" class="form-control" id="poemBody" required
-        maxlength="2000"></textarea>
+      <textarea v-model="poemData.body" type="text" class="form-control" id="poemBody" required maxlength="2000"
+        minlength="1"></textarea>
     </div>
 
     <div class="mb-3">
       <label for="tagsTitle" class="form-label">Tags</label>
       <input v-model="poemData.tags" type="text" class="form-control" id="tagsTitle" aria-describedby="tagsHelp"
-        required maxlength="20">
+        required maxlength="20" minlength="1">
     </div>
 
     <div class="mb-3">
@@ -64,7 +64,7 @@ async function createPoem() {
     <div class="col-12 mb-3">
       <label for="poem-image-url">Image Url</label>
       <input v-model="poemData.img" class="form-control" type="url" name="poem-image-url" id="poem-image-url"
-        maxlength="1000">
+        maxlength="1000" minlength="1">
     </div>
     <button type="submit" class="btn btn-outline-info">Submit</button>
   </form>

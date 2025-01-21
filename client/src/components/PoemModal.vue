@@ -1,14 +1,37 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import { commentsService } from '@/services/CommentService.js';
 import { savePoemsService } from '@/services/SavePoemsService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
 import { Modal } from 'bootstrap';
 import { computed, ref } from 'vue';
-
 // const account = computed(() => AppState.account)
 const accountBook = computed(() => AppState.profileBooks)
 const activePoem = computed(() => AppState.poemById)
+
+const commentData = ref({
+  body: '',
+  poemId: 0
+})
+
+async function comment() {
+  try {
+    commentData.value.poemId = activePoem.value.id
+    logger.log(commentData.value)
+    await commentsService.createComment(commentData.value, activePoem.value.id)
+
+    commentData.value = {
+      body: '',
+      poemId: 0
+    }
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
+
+
 
 const savedPoemToBookData = ref({
   bookId: 0,
@@ -57,10 +80,19 @@ async function createSavePoem() {
       <i class="mdi mdi-sack p-1">{{ activePoem?.saves }}</i>
       <i class="mdi mdi-heart p-1">{{ activePoem?.likes }}</i>
 
-      <i class="mdi mdi-comment-edit"></i>
+      <div class="dropup-center dropup">
 
+        <i class="mdi mdi-comment-edit dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false"></i>
+        <div class="dropdown-menu">
+          <form @submit.prevent="comment()">
+            <label class="m-1 justify-content-center d-flex fw-bold fs-4 " for="comment">Comments</label>
+            <input action="submit" v-model="commentData.body" minlength="1" maxlength="40" type="text"
+              placeholder=" Leave a Comment" class="text-bg-dark text-info" required name="comment" id="comment">
 
-
+          </form>
+        </div>
+      </div>
 
       <div class="dropdown">
         <form class="d-flex">

@@ -80,7 +80,7 @@ public class AccountsRepository
   internal List<SavedPoem> GetAllSavedPoems(string accountId)
   {
     string sql = @"
-    SELECT 
+    SELECT
     savedPoem.*
     FROM savedPoem
     WHERE savedPoem.creatorId = @accountId

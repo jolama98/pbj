@@ -9,37 +9,26 @@ import { Modal } from 'bootstrap';
 import { computed } from 'vue';
 
 const account = computed(() => AppState.account)
-// const activeProfile = computed(() => AppState.activeProfile)
-const poemId = computed(() => AppState.poemById)
+
+
 const props = defineProps({
   poem: { type: Poem, required: true }
 })
 
-function likePoem() {
+async function likePoem() {
   try {
     const poemId = { poemId: props.poem.id }
-    likedPoemService.createLikePoem(poemId)
+    await likedPoemService.createLikePoem(poemId)
   }
   catch (error) {
     Pop.error("Could not like poem", 'error');
     logger.log(error)
   }
 }
-// watch(() => AppState.poemById, () => {
-//   getPoemById()
-// })
 
-// function getPoemById() {
-//   try {
-//     poemsService.GetPoemById(poemId)
-//   }
-//   catch (error) {
-//     Pop.error(error);
-//   }
-// }
-function setActivePoem(poemId) {
+async function setActivePoem(poemId) {
   try {
-    poemsService.GetPoemById(poemId)
+    await poemsService.GetPoemById(poemId)
   }
   catch (error) {
     Pop.error(error);
@@ -88,6 +77,7 @@ async function deletePoem() {
             <i class="mdi mdi-sack p-1"> {{ props.poem.saves }}</i></small>
           <small class="text-body-secondary">
             <i @click="likePoem()" class="mdi mdi-heart p-1">{{ props.poem.likes }}</i></small>
+
         </div>
 
       </div>

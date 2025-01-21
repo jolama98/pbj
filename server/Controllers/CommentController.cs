@@ -1,7 +1,7 @@
 namespace pbj.Controllers;
 
 [ApiController]
-[Route("api/controller")]
+[Route("api/[controller]")]
 public class CommentController : ControllerBase
 {
     private readonly Auth0Provider _auth0Provider;

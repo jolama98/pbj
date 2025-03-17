@@ -19,7 +19,7 @@ public class CommentRepository
         SELECT
         *
         FROM comments
-         JOIN accounts ON accounts.id = comments.creatorId
+        JOIN accounts ON accounts.id = comments.creatorId
         WHERE comments.id = LAST_INSERT_ID();";
 
         Comment comment = _db.Query<Comment, Profile, Comment>(sql, JoinCreator, commentData).FirstOrDefault();

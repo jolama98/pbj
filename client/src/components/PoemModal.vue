@@ -9,6 +9,7 @@ import { computed, ref } from 'vue';
 // const account = computed(() => AppState.account)
 const accountBook = computed(() => AppState.profileBooks)
 const activePoem = computed(() => AppState.poemById)
+const commentsForPoem = computed(() => AppState.comments)
 
 const commentData = ref({
   body: '',
@@ -107,6 +108,7 @@ async function createSavePoem() {
         </form>
       </div>
     </div>
+    {{ commentsForPoem.length }}
 
   </div>
 </template>

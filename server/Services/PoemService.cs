@@ -2,10 +2,12 @@ namespace pbj.Services;
 public class PoemService
 {
     private readonly PoemRepository _poemRepository;
+    private readonly CommentService _commentService;
 
-    public PoemService(PoemRepository poemRepository)
+    public PoemService(PoemRepository poemRepository, CommentService commentService)
     {
         _poemRepository = poemRepository;
+        _commentService = commentService;
     }
 
     internal List<Poem> GetAllPoems()
@@ -31,6 +33,14 @@ public class PoemService
         return "Poem was DELETED!";
     }
 
+
+    internal Poem GetAllCommentsByPoemId(int poemId, int commentId)
+    {
+        Comment comment = _commentService.GetCommentById(commentId);
+        Poem poem = _poemRepository.GetPoemById(poemId) ?? throw new Exception($"No Poem found with this id of {poemId}");
+
+        return poem;
+    }
 
     internal Poem GetPoemById(int poemId)
     {

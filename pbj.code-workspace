@@ -15,6 +15,9 @@
       "popperjs",
       "sweetalert",
       "tmyb"
-    ]
+    ],
+    "workbench.tree.stickyScrollMaxItemCount": 4,
+    "workbench.tree.enableStickyScroll": false,
+    "editor.stickyScroll.maxLineCount": 4
   }
 }

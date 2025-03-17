@@ -14,7 +14,7 @@ public class CommentController : ControllerBase
     }
 
     //SECTION - GetAllComments
-    [HttpGet]
+    [HttpGet()]
     public ActionResult<List<Comment>> GetAllComments()
     {
         try

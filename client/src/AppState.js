@@ -32,7 +32,11 @@ export const AppState = reactive({
   likedPoem: [],
 
   /**@type {SavedPoem[]} */
-  savedPoem: []
+  savedPoem: [],
+  /**@type {import('./models/Comments.js') .Comment[]} */
+  comments: [],
+  /**@type {Comment[]} */
+  activePoemComments: []
 
 })
 

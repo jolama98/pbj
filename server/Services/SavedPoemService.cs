@@ -17,9 +17,7 @@ public class SavedPoemService
         Book book = _bookService.GetBookById(savedPoemData.BookId, userId);
         SavedPoem savedPoem = _savedPoemRepository.CreateSavedPoem(savedPoemData);
         if (book.CreatorId != userId) throw new Exception("You can't create a savePoem in this book!");
-
         return savedPoem;
-
     }
 
     internal string DestroySavePoem(int savedPoemId, string userId)

@@ -116,4 +116,21 @@ public class PoemController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
+
+    //SECTION Get All Comments By PoemId
+    [HttpGet("{poemId}/comments")]
+    public async Task<ActionResult<Poem>> GetAllCommentsByPoemId(int poemId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+
+            Poem poem = _poemService.GetAllCommentsByPoemId(poemId);
+            return Ok(poem);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
 }

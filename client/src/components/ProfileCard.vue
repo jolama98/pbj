@@ -93,7 +93,7 @@ async function logout() {
           <button class="btn btn-outline-info mb-4 rounded-4">{{ books.length }} Book</button>
           <button class="btn btn-outline-info mb-4 rounded-4">All</button>
           <button class="btn btn-outline-info mb-4 rounded-4">{{ savedPoems.length }} Saved</button>
-          <button class="btn btn-outline-info mb-4 rounded-4">{{ likedPoems.length }} Liked</button>
+          <button class="btn btn-outline-info button-color mb-4 rounded-4">{{ likedPoems.length }} Liked</button>
 
 
 
@@ -126,5 +126,9 @@ async function logout() {
   width: 10vh;
   height: 10vh;
   border-radius: 50%;
+}
+
+.button-color {
+  color: #13a028;
 }
 </style>

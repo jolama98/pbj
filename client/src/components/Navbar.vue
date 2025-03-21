@@ -69,10 +69,10 @@ function toggleTheme() {
         </li>
       </ul>
       <div class="box pt-3">
-        <i class="mdi mdi-magnify d-flex"></i>
+        <i class="mdi mdi-magnify text-info d-flex"></i>
         <form @submit.prevent="searchPoem()" name="search">
-          <input v-model="searchQuery" placeholder="Search for poems..." type="text" class="input" name="query"
-            id="query">
+          <input v-model="searchQuery" placeholder="Search for poems..." type="text" class="input text-info"
+            name="query" id="query">
         </form>
       </div>
 
@@ -140,7 +140,7 @@ a:hover {
   box-sizing: border-box;
   font-family: Comic Sans MS;
   font-size: 26px;
-  color: #13a028;
+
   outline: none;
   transition: .5s;
 }
@@ -157,7 +157,7 @@ a:hover {
   left: 96%;
   transform: translate(-50%, -50%);
   font-size: 26px;
-  color: #13a028;
+
   transition: .2s;
 }
 </style>

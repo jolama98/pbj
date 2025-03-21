@@ -71,11 +71,7 @@ async function getAllPoems() {
 <style scoped lang="scss">
 .scrollable-div {
   width: 600px;
-  /* Set a fixed width */
   height: 900px;
-  /* Set a fixed height */
   overflow: auto;
-  /* Enables scrollbars when content overflows */
-
 }
 </style>

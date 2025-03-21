@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS accounts (
     picture varchar(255) COMMENT 'User Picture'
 ) default charset utf8mb4 COMMENT '';
 
-CREATE TABLE IF NOT EXISTS poem (
+CREATE TABLE IF NOT EXISTS poem(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -21,10 +21,9 @@ CREATE TABLE IF NOT EXISTS poem (
     likes INT UNSIGNED NOT NULL DEFAULT 0,
     authorId VARCHAR(255) NOT NULL,
     FOREIGN KEY (authorId) REFERENCES accounts (id) ON DELETE CASCADE
-FOREIGN KEY (saved) REFERENCES
-);
+)
 
-ALTER TABLE poem ADD isLiked BOOLEAN NOT NULL
+
 
 DROP TABLE poem;
 
@@ -41,20 +40,28 @@ VALUES (
     );
 
 
--- INSERT INTO
---     poem (
---         title,
---         body,
---         tags,
---         isArchived,
---         authorId
---     )
--- VALUES (
---         "kni",
---         "In a kingdom where the stars aligned,
--- A prince with words both sweet and kind,
--- Met a princess, her heart so bright,
--- Th ","#Prince",false,'66d109c1258b754bca428053')
+INSERT INTO
+    poem (
+        title,
+        body,
+        tags,
+        isArchived,
+        isLiked,
+        authorId
+    )
+VALUES (
+        "Soda 2",
+        "I sit and wait behind the glass,
+A lonely can, time slipping fast.
+To be picked is all I crave,
+But what if I'm too weak to save?
+
+Will I burst, or will I shine?
+Taste the air or cross the line?
+I dream of hands to set me free,
+But fear what's waiting out for me.,
+Th ","#Prince",false,false,'66d109c1258b754bca428053'
+);
 
 CREATE TABLE IF NOT EXISTS savedPoem (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -96,7 +103,7 @@ CREATE TABLE IF NOT EXISTS books (
     FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
 );
 
-DROP TABLE comments
+DROP TABLE poem
 
 ALTER TABLE books ADD isPrivate BOOLEAN NOT NULL
 

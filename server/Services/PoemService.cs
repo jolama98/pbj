@@ -34,13 +34,13 @@ public class PoemService
     }
 
 
-    internal Poem GetAllCommentsByPoemId(int poemId, int commentId)
-    {
-        Comment comment = _commentService.GetCommentById(commentId);
-        Poem poem = _poemRepository.GetPoemById(poemId) ?? throw new Exception($"No Poem found with this id of {poemId}");
+    // internal Poem GetAllCommentsByPoemId(int poemId, int commentId)
+    // {
+    //     Comment comment = _commentService.GetCommentById(commentId);
+    //     Poem poem = _poemRepository.GetPoemById(poemId) ?? throw new Exception($"No Poem found with this id of {poemId}");
 
-        return poem;
-    }
+    //     return poem;
+    // }
 
     internal Poem GetPoemById(int poemId)
     {

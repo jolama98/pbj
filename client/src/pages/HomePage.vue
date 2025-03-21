@@ -52,8 +52,8 @@ async function getAllPoems() {
           </div>
         </div>
 
-        <div class="col-md-8 col-12 pt-3">
-          <div v-for="poem in poems" :key="poem.id" class="pb-3">
+        <div class="col-md-8 col-12 pt-3 scrollable-div">
+          <div v-for="poem in poems" :key="poem.id" class="pb-3 ">
             <PoemCard :poem="poem" />
           </div>
         </div>
@@ -68,27 +68,14 @@ async function getAllPoems() {
 
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.scrollable-div {
+  width: 600px;
+  /* Set a fixed width */
+  height: 900px;
+  /* Set a fixed height */
+  overflow: auto;
+  /* Enables scrollbars when content overflows */
 
-// .masonry-layout {
-// column-count: 3;
-// column-gap: 1rem;
-// width: 100%;
-// }
-
-// .masonry-item {
-// break-inside: avoid;
-// margin-bottom: 1rem;
-// }
-
-// @media (max-width: 800px) {
-// .masonry-layout {
-// column-count: 2;
-// }
-// }
-
-// @media (max-width: 480px) {
-// .masonry-layout {
-// column-count: 1;
-// }
-// }
+}
+</style>

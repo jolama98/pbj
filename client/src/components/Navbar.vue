@@ -46,7 +46,7 @@ function toggleTheme() {
   <nav class="navbar navbar-expand-md navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="/img/cw-logo.png" height="45" />
+        <button class="btn text-success lighten-30 selectable text-uppercase">Home</button>
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -61,6 +61,7 @@ function toggleTheme() {
             About
           </router-link>
         </li>
+
         <li class="d-md-none d-block">
           <button class="btn selectable text-success lighten-30 text-uppercase" @click="login" v-if="!identity">
             Login

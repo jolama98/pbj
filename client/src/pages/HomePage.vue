@@ -8,7 +8,7 @@ import Pop from '@/utils/Pop.js';
 import { computed, onMounted, ref, watch } from 'vue';
 import ModalWrapper from '@/components/ModalWrapper.vue';
 import PoemModal from '@/components/PoemModal.vue';
-
+ 
 
 const poems = computed(() => AppState.poems)
 

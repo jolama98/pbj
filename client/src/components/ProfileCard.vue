@@ -5,6 +5,8 @@ import { computed } from 'vue';
 import ModalWrapper from './ModalWrapper.vue';
 import CreatePoemModal from './CreatePoemModal.vue';
 import CreateBookModal from './CreateBookModal.vue';
+import Pop from '@/utils/Pop.js';
+import { poemsService } from '@/services/PoemsService.js';
 
 
 const identity = computed(() => AppState.identity)
@@ -22,7 +24,9 @@ async function logout() {
   AuthService.logout()
 }
 
-
+function loadSavedPoems() {
+  console.log(savedPoems.value)
+}
 
 </script>
 
@@ -92,7 +96,10 @@ async function logout() {
 
           <button class="btn btn-outline-info mb-4 rounded-4">{{ books.length }} Book</button>
           <button class="btn btn-outline-info mb-4 rounded-4">All</button>
-          <button class="btn btn-outline-info mb-4 rounded-4">{{ savedPoems.length }} Saved</button>
+
+          <button @click="loadSavedPoems()" class="btn btn-outline-info mb-4 rounded-4">{{ savedPoems.length }}
+            Saved</button>
+
           <button class="btn btn-outline-info button-color mb-4 rounded-4">{{ likedPoems.length }} Liked</button>
 
 

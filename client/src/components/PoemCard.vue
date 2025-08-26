@@ -48,7 +48,7 @@ async function deletePoem() {
   }
   catch (error) {
     Pop.error(error);
-  }
+  } 
 }
 
 </script>

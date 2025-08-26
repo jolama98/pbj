@@ -2,7 +2,7 @@
 defineProps({ modalId: String })
 </script>
 
-
+ 
 <template>
   <div class="modal fade" :id="modalId" :aria-labelledby="`${modalId}Label`">
     <div class="modal-dialog modal-fullscreen-sm-down">

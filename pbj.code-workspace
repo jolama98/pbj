@@ -18,6 +18,7 @@
     ],
     "workbench.tree.stickyScrollMaxItemCount": 4,
     "workbench.tree.enableStickyScroll": false,
-    "editor.stickyScroll.maxLineCount": 4
+    "editor.stickyScroll.maxLineCount": 4,
+    "liveServer.settings.multiRootWorkspaceName": "client"
   }
 }

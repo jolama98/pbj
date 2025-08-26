@@ -51,14 +51,11 @@ class PoemsService {
     const newPoem = new Poem(response.data)
     AppState.poems.unshift(newPoem)
   }
-  // async getAllSavedPoem() {
-  //   const response = await api.get('api/savedPoems')
-  //   const newPoems = response.data.map(savedPoemsData => new Poem(savedPoemsData))
-  //   AppState.savedPoem = newPoems
-  // }
+  async getAllSavedPoem() {
+    const response = await api.get('api/savedPoems')
+    const newPoems = response.data.map(savedPoemsData => new Poem(savedPoemsData))
+    AppState.savedPoem = newPoems
+  }
 
 }
-
-
-
 export const poemsService = new PoemsService()

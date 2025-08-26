@@ -23,6 +23,14 @@ async function login() {
 async function logout() {
   AuthService.logout()
 }
+async function getAllPoems() {
+      try {
+    await poemsService.getAllPoems()
+  }
+  catch (error) {
+    Pop.error(error)
+  }
+    }
 
 function loadSavedPoems() {
   console.log(savedPoems.value)
@@ -95,7 +103,7 @@ function loadSavedPoems() {
             A Book</button>
 
           <button class="btn btn-outline-info mb-4 rounded-4">{{ books.length }} Book</button>
-          <button class="btn btn-outline-info mb-4 rounded-4">All</button>
+          <button @click="getAllPoems()" class="btn btn-outline-info mb-4 rounded-4">All</button>
 
           <button @click="loadSavedPoems()" class="btn btn-outline-info mb-4 rounded-4">{{ savedPoems.length }}
             Saved</button>

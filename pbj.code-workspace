@@ -21,6 +21,8 @@
     "editor.stickyScroll.maxLineCount": 4,
     "liveServer.settings.multiRootWorkspaceName": "client",
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "vscode.html-language-features"
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "files.autoSave": "onFocusChange",
+    "notebook.defaultFormatter": "vscode.typescript-language-features"
   }
 }

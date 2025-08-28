@@ -27,7 +27,7 @@ AuthService.on(AUTH_EVENTS.AUTHENTICATED, async function () {
   try {
     await accountService.getAccountBook()
     await accountService.getAllSavedPoems()
-    await accountService.getLikedPoemsByProfileId()
+    // await accountService.getLikedPoemsByProfileId()
   }
   catch (error) {
     Pop.error(error);

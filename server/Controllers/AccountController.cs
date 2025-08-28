@@ -83,18 +83,18 @@ public class AccountController : ControllerBase
     }
   }
 
-  [HttpGet("likedPoem")]
-  async public Task<ActionResult<List<LikedPoem>>> GetLikedPoems(string profileId)
-  {
-    try
-    {
-      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      List<LikedPoem> likedPoems = _accountService.GetLikedPoemByProfileId(userInfo?.Id);
-      return Ok(likedPoems);
-    }
-    catch (Exception exception)
-    {
-      return BadRequest(exception.Message);
-    }
-  }
+  // [HttpGet("likedPoem")]
+  // async public Task<ActionResult<List<LikedPoem>>> GetLikedPoems(string profileId)
+  // {
+  //   try
+  //   {
+  //     Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+  //     List<LikedPoem> likedPoems = _accountService.GetLikedPoemByProfileId(userInfo?.Id);
+  //     return Ok(likedPoems);
+  //   }
+  //   catch (Exception exception)
+  //   {
+  //     return BadRequest(exception.Message);
+  //   }
+  // }
 }

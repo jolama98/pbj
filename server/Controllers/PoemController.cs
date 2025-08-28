@@ -89,7 +89,7 @@ public class PoemController : ControllerBase
                 return BadRequest("Search query cannot be empty.");
             }
 
-            List<Poem> poems = _poemService.SearchForPoems(query);
+              List<Poem> poems = _poemService.SearchForPoems(query);
             return Ok(poems);
         }
         catch (Exception exception)
@@ -134,3 +134,4 @@ public class PoemController : ControllerBase
     //     }
     // }
 }
+ 

@@ -28,7 +28,7 @@ async function likePoem() {
 
 async function setActivePoem(poemId) {
   try {
-    await poemsService.GetPoemById(poemId)
+    await poemsService.getPoemById(poemId)
   }
   catch (error) {
     Pop.error(error);

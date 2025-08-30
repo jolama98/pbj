@@ -4,11 +4,11 @@ namespace pbj.Services;
 
 public class LikedPoemService
 {
-    private readonly LikedPoemRepository _likedPoemRepository;
-    private readonly PoemRepository _poemRepository;
+    // private readonly LikedPoemRepository _likedPoemRepository;
+    // private readonly PoemRepository _poemRepository;
 
-    private readonly PoemService _poemService;
-    private readonly AccountService _accountService;
+    // private readonly PoemService _poemService;
+    // private readonly AccountService _accountService;
 
     // public LikedPoemService(PoemService poemService, LikedPoemRepository likedPoemRepository, AccountService accountService, PoemRepository poemRepository)
     // {

@@ -5,7 +5,7 @@ namespace pbj.Controllers;
 public class BookController : ControllerBase
 {
     private readonly BookService _bookService;
-    private readonly SavedPoemService _savedPoemService;
+    // private readonly SavedPoemService _savedPoemService;
     private readonly Auth0Provider _auth0Provider;
 
     public BookController(BookService bookService, Auth0Provider auth0Provider)
@@ -14,7 +14,7 @@ public class BookController : ControllerBase
         _auth0Provider = auth0Provider;
     }
 
-    //SECTION - create book
+
     [Authorize]
     [HttpPost]
     public async Task<ActionResult<Book>> CreateBook([FromBody] Book bookData)
@@ -32,7 +32,7 @@ public class BookController : ControllerBase
         }
     }
 
-    //SECTION -  book by id
+
     [HttpGet("{bookId}")]
     public async Task<ActionResult<Book>> GetBookById(int bookId)
     {
@@ -47,7 +47,7 @@ public class BookController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
-    //SECTION - deleted vault
+
     [Authorize]
     [HttpDelete("{bookId}")]
     public async Task<ActionResult<string>> DestroyBook(int bookId)
@@ -64,20 +64,21 @@ public class BookController : ControllerBase
         }
     }
 
-    //SECTION - public book
-    [HttpGet("{bookId}/poem")]
-    public async Task<ActionResult<List<SavedPoemPoem>>> GetPublicBook(int bookId)
-    {
-        try
-        {
-            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            List<SavedPoemPoem> savedPoem = _savedPoemService.GetPublicBook(bookId, userInfo.Id);
-            return Ok(savedPoem);
-        }
-        catch (Exception exception)
-        {
-            return BadRequest(exception.Message);
-        }
-    }
+
+    // [HttpGet("{bookId}/poem")]
+    // public async Task<ActionResult<List<SavedPoemPoem>>> GetPublicBook(int bookId)
+    // {
+    //     try
+    //     {
+    //         Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+    //         List<SavedPoemPoem> savedPoem = _savedPoemService.GetPublicBook(bookId, userInfo.Id);
+    //         return Ok(savedPoem);
+    //     }
+    //     catch (Exception exception)
+    //     {
+    //         return BadRequest(exception.Message);
+    //     }
+    // }
 
 }
+//FIXME - ALL BOOK FILES NEED TO BE UPDATED

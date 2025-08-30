@@ -1,23 +1,31 @@
-import { DBItem } from "./DBItem.js"
-import { LikedPoem } from "./LikedPoem.js"
+import { DBItem } from './DBItem.js'
+import { Profile } from './Profile.js'
+import { LikedPoem } from './LikedPoem.js'
+
 export class Poem extends DBItem {
   constructor(data) {
     super(data)
+
     this.id = data.id
     this.title = data.title
     this.body = data.body
     this.views = data.views
     this.tags = data.tags
-    // this.likes = data.likes
+
     this.saves = data.saves
     this.isArchived = data.isArchived
-    this.isLiked = data.isLiked
+
+    // ✅ keep the DB like-count separate from liked objects
+    this.likeCount = data.likes ?? 0  
+
+    this.isLiked = data.isLiked ?? false
+
     this.authorId = data.authorId
-    this.imgUrl = data.imgUrl
+
+    /** @type {Profile} */
     this.creator = data.creator
-    /**@type {LikedPoem[]} */
-    this.likes = data.likes
+
+    /** @type {LikedPoem[]} */
+    this.likedBy = data.likedBy ?? []   // array of users who liked it
   }
 }
-
-

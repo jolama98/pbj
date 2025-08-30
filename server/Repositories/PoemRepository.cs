@@ -13,8 +13,8 @@ public class PoemRepository
     {
         string sql = @"
         INSERT INTO
-        poem(title, body, tags, isArchived, isLiked, image,  authorId)
-        VALUES(@title, @body, @tags, @isArchived, @isLiked, @image, @authorId);
+        poem(title, body, tags, isArchived, isLiked,  authorId)
+        VALUES(@title, @body, @tags, @isArchived, @isLiked, @authorId);
 
         SELECT
         poem.*,
@@ -35,7 +35,7 @@ public class PoemRepository
         accounts.*
         FROM poem
         JOIN accounts ON accounts.id = poem.authorId
-        GROUP BY (poem.id)
+        ORDER BY poem.id
         ;";
 
 
@@ -43,7 +43,10 @@ public class PoemRepository
         {
             poem.Creator = profile;
             return poem;
-        }).ToList();
+        },
+        splitOn: "id"
+        ).ToList();
+
         return poem;
     }
 

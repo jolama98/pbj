@@ -62,9 +62,7 @@ async function createPoem() {
     </div>
 
     <div class="col-12 mb-3">
-      <label for="poem-image-url">Image Url</label>
-      <input v-model="poemData.img" class="form-control" type="url" name="poem-image-url" id="poem-image-url"
-        maxlength="1000" minlength="1">
+     
     </div>
     <button type="submit" class="btn btn-outline-info">Submit</button>
   </form>

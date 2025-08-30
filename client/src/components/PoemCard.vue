@@ -74,7 +74,8 @@ async function deletePoem() {
           <small class="text-body-secondary">
             <i class="mdi mdi-sack p-1"> {{ props.poem.saves }}</i></small>
             <small class="text-body-secondary">
-              <i @click="likePoem()" class="mdi mdi-heart p-1">{{ props.poem.likes }}</i></small>
+              <i @click="likePoem()" class="mdi mdi-heart p-1">{{  }}</i></small>
+              <!-- // FIXME - this will be the array of LikedPoem objects -->
 
             </div>
           </div>

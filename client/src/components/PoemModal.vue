@@ -30,7 +30,7 @@ async function comment() {
   catch (error) {
     Pop.error(error);
   }
-} 
+}
 
 
 
@@ -65,7 +65,7 @@ async function createSavePoem() {
   <div class="row">
     <div class="col-12">
       <div class="card">
-        <h2 class="card-header text-light p-3 d-flex justify-content-center">{{
+        <h2 class="card-header text-dark p-3 d-flex justify-content-center">{{
           activePoem?.title }}
         </h2>
       </div>
@@ -79,7 +79,7 @@ async function createSavePoem() {
       <i class="mdi mdi-eye"> {{ activePoem?.views }}</i>
 
       <i class="mdi mdi-sack p-1">{{ activePoem?.saves }}</i>
-      <i class="mdi mdi-heart p-1">{{ activePoem?.likes }}</i>
+      <!-- <i class="mdi mdi-heart p-1">{{ activePoem?.likes }}</i> -->
 
       <div class="dropup-center dropup">
 

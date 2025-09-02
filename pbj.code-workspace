@@ -21,8 +21,10 @@
     "editor.stickyScroll.maxLineCount": 4,
     "liveServer.settings.multiRootWorkspaceName": "client",
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.defaultFormatter": "Vue.volar",
     "files.autoSave": "onFocusChange",
-    "notebook.defaultFormatter": "vscode.typescript-language-features"
+    "notebook.defaultFormatter": "vscode.typescript-language-features",
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "editor.guides.bracketPairs": false
   }
 }

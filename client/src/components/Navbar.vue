@@ -94,7 +94,7 @@ function toggleTheme() {
               id="query" autocomplete="off" />
             <button v-if="searchQuery" class="btn btn-outline-secondary search__clear" type="button"
               @click="clearSearch" aria-label="Clear search" title="Clear">
-              <i class="mdi mdi-close"></i>
+
             </button>
           </div>
         </form>
@@ -191,32 +191,69 @@ function toggleTheme() {
 }
 
 /* --- Search --- */
+
 .search {
-  min-width: min(520px, 100%);
+  min-width: min(560px, 100%);
 }
 
 .search__group {
+  position: relative;
   border-radius: 999px;
+  border: 2px solid transparent;
+  /* so we can paint a gradient border */
+  background:
+    /* inner fill */
+    linear-gradient(color-mix(in oklab, var(--bs-body-bg) 85%, transparent),
+      color-mix(in oklab, var(--bs-body-bg) 85%, transparent)) padding-box,
+    /* gradient border */
+    linear-gradient(135deg,
+      color-mix(in oklab, var(--bs-primary) 35%, transparent),
+      color-mix(in oklab, var(--bs-info) 35%, transparent)) border-box;
+  backdrop-filter: saturate(120%) blur(6px);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, .06),
+    inset 0 1px 0 rgba(255, 255, 255, .05);
+  transition: box-shadow .2s ease, transform .12s ease, background .2s ease;
   overflow: hidden;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .05);
 }
 
+.search__group:hover {
+  transform: translateY(-1px);
+}
+
+.search__group:focus-within {
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, .12),
+    inset 0 0 0 1px color-mix(in oklab, var(--bs-primary) 25%, transparent);
+  background:
+    linear-gradient(color-mix(in oklab, var(--bs-body-bg) 80%, transparent),
+      color-mix(in oklab, var(--bs-body-bg) 80%, transparent)) padding-box,
+    linear-gradient(135deg, var(--bs-primary), var(--bs-info)) border-box;
+}
+
+/* Left icon pill */
 .search__icon {
   background: transparent;
   border: 0;
   font-size: 1.1rem;
-  padding-left: .9rem;
+  padding-left: 1rem;
   padding-right: .25rem;
+  color: color-mix(in oklab, var(--bs-body-color) 60%, transparent);
 }
 
+/* Input */
 .search__input {
   border: 0 !important;
-  background: color-mix(in oklab, var(--bs-body-bg) 85%, transparent);
-  height: 42px;
-  font-size: .95rem;
+  background: transparent;
+  height: 46px;
+  font-size: .98rem;
   line-height: 1;
-  padding-top: .6rem;
-  padding-bottom: .6rem;
+  padding-top: .65rem;
+  padding-bottom: .65rem;
+}
+
+.search__input::placeholder {
+  color: color-mix(in oklab, var(--bs-body-color) 45%, transparent);
 }
 
 .search__input:focus {
@@ -224,15 +261,19 @@ function toggleTheme() {
   outline: none;
 }
 
-.search__group:focus-within {
-  box-shadow:
-    inset 0 0 0 2px color-mix(in oklab, var(--bs-info) 55%, transparent),
-    0 6px 16px rgba(0, 0, 0, .06);
-}
-
+/* Clear button */
 .search__clear {
   border: 0;
-  height: 42px;
+  height: 46px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--bs-info) 12%, transparent);
+  transition: transform .12s ease, background-color .2s ease;
+  margin-right: .25rem;
+}
+
+.search__clear:hover {
+  transform: scale(1.05);
+  background: color-mix(in oklab, var(--bs-info) 18%, transparent);
 }
 
 /* --- Theme toggle --- */

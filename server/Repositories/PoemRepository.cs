@@ -144,50 +144,94 @@ ORDER BY poem.id DESC;
     // SEARCH: FULLTEXT if available; fallback to LIKE otherwise
     // NOTE: Requires FULLTEXT KEY on (title, body).
     // ------------------------------------------------------------------------
-    internal List<Poem> SearchPoems(string searchTerm)
-    {
-        // Preferred (fast) FULLTEXT path:
-        string fullTextSql = @"
+internal IEnumerable<Poem> SearchPoems(string booleanQuery, string plain, string tagExact, int skip, int take)
+{
+    // BOOLEAN MODE (ranked) + LIKE fallbacks + pagination
+    const string fullTextSql = @"
 SELECT
-  poem.*,
-  accounts.*
-FROM poem
-JOIN accounts ON accounts.id = poem.authorId
-WHERE MATCH(poem.title, poem.body) AGAINST (@q IN NATURAL LANGUAGE MODE)
-ORDER BY poem.id DESC;
-";
-        try
-        {
-            return _db.Query<Poem, Profile, Poem>(
-                fullTextSql,
-                JoinCreator,
-                new { q = searchTerm },
-                splitOn: "id"
-            ).ToList();
-        }
-        catch
-        {
-            // Fallback to LIKE if FULLTEXT isn't available (dev envs, etc.)
-            string likeSql = @"
-SELECT
-  poem.*,
-  accounts.*
-FROM poem
-JOIN accounts ON accounts.id = poem.authorId
+  p.*,
+  a.*,
+  (
+      (MATCH(p.title) AGAINST (@q IN BOOLEAN MODE)) * 3.0
+    + (MATCH(p.tags)  AGAINST (@q IN BOOLEAN MODE)) * 2.5
+    + (MATCH(p.body)  AGAINST (@q IN BOOLEAN MODE)) * 1.0
+    + COALESCE((
+        SELECT MAX(MATCH(g.name) AGAINST (@q IN BOOLEAN MODE))
+        FROM poemGenre pg
+        JOIN genre g ON g.id = pg.genreId
+        WHERE pg.poemId = p.id
+      ), 0) * 2.0
+    + CASE
+        WHEN @tagExact IS NOT NULL AND @tagExact <> ''
+             AND FIND_IN_SET(@tagExact, REPLACE(LOWER(p.tags), ' ', '')) > 0
+        THEN 1.0 ELSE 0
+      END * 1.5
+  ) AS rank_score
+FROM poem p
+JOIN accounts a ON a.id = p.authorId
 WHERE
-  poem.title LIKE CONCAT('%', @q, '%')
-  OR poem.body LIKE CONCAT('%', @q, '%')
-  OR poem.tags LIKE CONCAT('%', @q, '%')
-ORDER BY poem.id DESC;
-";
-            return _db.Query<Poem, Profile, Poem>(
-                likeSql,
-                JoinCreator,
-                new { q = searchTerm },
-                splitOn: "id"
-            ).ToList();
-        }
+      MATCH(p.title, p.body, p.tags) AGAINST (@q IN BOOLEAN MODE)
+   OR EXISTS (
+        SELECT 1
+        FROM poemGenre pg
+        JOIN genre g ON g.id = pg.genreId
+        WHERE pg.poemId = p.id
+          AND MATCH(g.name) AGAINST (@q IN BOOLEAN MODE)
+      )
+   OR p.title LIKE CONCAT('%', @plain, '%')
+   OR p.body  LIKE CONCAT('%', @plain, '%')
+   OR p.tags  LIKE CONCAT('%', @plain, '%')
+   OR EXISTS (
+        SELECT 1
+        FROM poemGenre pg
+        JOIN genre g ON g.id = pg.genreId
+        WHERE pg.poemId = p.id
+          AND g.name LIKE CONCAT('%', @plain, '%')
+      )
+ORDER BY rank_score DESC, p.createdAt DESC
+LIMIT @take OFFSET @skip;";
+
+    try
+    {
+        return _db.Query<Poem, Profile, Poem>(
+            fullTextSql,
+            JoinCreator,
+            new { q = booleanQuery, plain, tagExact, skip, take },
+            splitOn: "id" // first id is poem.id, second id is accounts.id
+        );
     }
+    catch
+    {
+        // LIKE-only fallback if FULLTEXT is unavailable or misindexed in dev
+        const string likeSql = @"
+SELECT
+  p.*,
+  a.*
+FROM poem p
+JOIN accounts a ON a.id = p.authorId
+WHERE
+      p.title LIKE CONCAT('%', @plain, '%')
+   OR p.body  LIKE CONCAT('%', @plain, '%')
+   OR p.tags  LIKE CONCAT('%', @plain, '%')
+   OR EXISTS (
+        SELECT 1
+        FROM poemGenre pg
+        JOIN genre g ON g.id = pg.genreId
+        WHERE pg.poemId = p.id
+          AND g.name LIKE CONCAT('%', @plain, '%')
+      )
+ORDER BY p.createdAt DESC
+LIMIT @take OFFSET @skip;";
+
+        return _db.Query<Poem, Profile, Poem>(
+            likeSql,
+            JoinCreator,
+            new { plain, skip, take },
+            splitOn: "id"
+        );
+    }
+}
+
 
     // ------------------------------------------------------------------------
     // UPDATE: Update mutable fields. updatedAt is handled by DB trigger (ON UPDATE)

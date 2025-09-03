@@ -11,6 +11,7 @@ export class Poem extends DBItem {
     this.body = data.body
     this.views = data.views
     this.tags = data.tags
+    this.genre = data.genre
 
     this.saves = data.saves
     this.isArchived = data.isArchived

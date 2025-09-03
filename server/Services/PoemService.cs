@@ -1,5 +1,7 @@
 namespace pbj.Services;
 
+using pbj.Utils;
+
 /*
 ===============================================================================
 PoemService — Business Logic Layer for Poems
@@ -144,15 +146,22 @@ public class PoemService
     // - Throws if keyword is empty/whitespace.
     // - Repository uses FULLTEXT (title, body).
     // =========================================================================
-    internal List<Poem> SearchForPoems(string query, int skip, int take)
+   internal List<Poem> SearchForPoems(string query, int skip, int take)
+{
+    if (string.IsNullOrWhiteSpace(query))
     {
-        if (string.IsNullOrWhiteSpace(query))
-        {
-            throw new ArgumentException("Search term cannot be empty or whitespace.");
-        }
-
-        return _poemRepository.SearchPoems(query);
+        throw new ArgumentException("Search term cannot be empty or whitespace.");
     }
+
+    // Clamp values for safety
+    take = Math.Clamp(take, 1, 100);
+    skip = Math.Max(0, skip);
+
+    // Build a MySQL fulltext-friendly query string + plain fallback
+    var (booleanQuery, plain, tagExact) = FullTextQueryBuilder.Build(query);
+
+    return _poemRepository.SearchPoems(booleanQuery, plain, tagExact, skip, take).ToList();
+}
 
    
 }

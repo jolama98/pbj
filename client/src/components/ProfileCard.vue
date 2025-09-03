@@ -196,7 +196,7 @@ function loadSavedPoems() { console.log(savedPoems.value); }
                 <li><button class="dropdown-item">Saved</button></li>
               </ul>
             </div>
-            <button class="btn btn-outline-info btn-sm w-100" @click="getAllPoems">All</button>
+            <!-- <button class="btn btn-outline-info btn-sm w-100" @click="getAllPoems">All</button> -->
           </div>
         </div>
       </div>

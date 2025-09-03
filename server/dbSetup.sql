@@ -79,6 +79,18 @@ CREATE TABLE IF NOT EXISTS poem (
     FOREIGN KEY (authorId) REFERENCES accounts (id) ON DELETE CASCADE
 ) ENGINE=InnoDB COMMENT 'Poems table, core user content';
 
+-- Add FULLTEXT to tags as well (you already have title/body)
+ALTER TABLE poem
+  ADD FULLTEXT KEY ft_poem_title_body_tags (title, body, tags);
+  -- Optional: a combined index can help relevance when searching across all three
+  ADD FULLTEXT KEY ft_poem_title_body_tags (title, body, tags);
+
+-- Genre names should be fulltext searchable too
+ALTER TABLE genre
+  ADD FULLTEXT KEY ft_genre_name (name);
+
+
+
 
 -- ==========================
 -- BOOKS: user-made collections of poems (like playlists/folders)

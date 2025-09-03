@@ -111,10 +111,7 @@ function toggleTheme() {
               <li><button class="dropdown-item" type="button">All</button></li>
               <li><button class="dropdown-item" type="button">Saved</button></li>
               <li><button class="dropdown-item" type="button">Liked</button></li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li><button class="dropdown-item" type="button">Edit Profile</button></li>
+
             </ul>
           </li>
 
